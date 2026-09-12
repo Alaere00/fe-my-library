@@ -1,5 +1,5 @@
 import * as React from 'react'
-import SearchBoxComponent from '../components/SearchBox/SearchBox'
+import SearchPage from '../components/SearchPage/SearchPage'
 
 function App() {
   // const [search, setSearch] = React.useState('')
@@ -33,7 +33,7 @@ function App() {
   return (
     <>
     <p color='black'>Search</p>
-    <SearchBoxComponent></SearchBoxComponent>
+    <SearchPage></SearchPage>
     </>
   )
 }
