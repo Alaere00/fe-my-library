@@ -1,0 +1,13 @@
+.search-container {
+    padding-top: 10px;
+
+
+    .loading-bar {
+        width: 100vw;
+        height: 10px;
+        margin-bottom: 10px;
+    }
+
+    
+
+}

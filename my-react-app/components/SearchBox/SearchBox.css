@@ -1,3 +1,6 @@
-.search-box {
-    width: 350px;
+.search-container {
+    justify-content: space-between;
+    display: flex;
+    gap: 10px;
+
 }

@@ -27,7 +27,7 @@ const BookResultListComponent = ({ results }: BookListProps  ) => {
                               className="image-styles"
                               src={info.volumeInfo.imageLinks?.thumbnail ?? "..../src/assets/no-image.png"}
                  
-                              alt="Elvia Atkins avatar picture"
+                              alt=""
                             />
                           }
                     
@@ -35,9 +35,6 @@ const BookResultListComponent = ({ results }: BookListProps  ) => {
                     >
 
                     </CardHeader>
-
-
-
                   </Card>))}
 
         </ListItem>
