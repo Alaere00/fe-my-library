@@ -1,22 +1,27 @@
 export interface TitleResponse {
     totalItems: number
-    items: ItemsResponse
+    items: ItemsResponse[]
 }
 
 interface ItemsResponse {
-    volumeInfo: VolumeInfo[]
+    volumeInfo: VolumeInfo
 
 }
 
 interface VolumeInfo {
-    authors: string[]
-    averageRating: number
-    description: string
-    imageLinks: object
-    language: string
-    pageCount: number
-    publishDate: string
-    publisher: string
-    ratingsCount: number
-    title: string
+    authors?: string[]
+    averageRating?: number
+    description?: string
+    imageLinks?: ImageLinks
+    language?: string
+    pageCount?: number
+    publishDate?: string
+    publisher?: string
+    ratingsCount?: number
+    title?: string
+}
+
+interface ImageLinks {
+    smallThumbnail?: string
+    thumbnail?: string
 }

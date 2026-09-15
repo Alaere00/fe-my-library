@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import type { TitleResponse } from "../types/BookResponseTypes"
 import SearchBoxComponent from '../SearchBox/SearchBox'
-import BookResultListComponent from '../BookResultList/BookResultList';
+import BookResultListComponent from '../BookCardList/BookCardList';
 
 export default function SearchPage(){
     const [result, setResults] = useState<TitleResponse>({} as TitleResponse)

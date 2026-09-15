@@ -1,0 +1,11 @@
+.book-card {
+    height: 180px;
+    margin: 10px;
+
+    .image-styles {
+        height: 150px;
+        width: 116px;
+    }
+}
+
+
