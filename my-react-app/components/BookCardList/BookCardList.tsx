@@ -13,34 +13,38 @@ interface BookListProps {
 }
 
 const BookResultListComponent = ({ results }: BookListProps  ) => {
-    
+    const maxLength: number = 170;
+
     return (
         <>
-        <ListItem
-        >
-                  {results?.items?.map((info, index) => (<Card className="book-card" key={index}>
-                    <CardHeader 
-                        key={index} 
-                        title={info.volumeInfo.title}
-                        image={
-                            <img
-                              className="image-styles"
-                              src={info.volumeInfo.imageLinks?.thumbnail ?? "..../src/assets/no-image.png"}
-                 
-                              alt=""
-                            />
-                          }
-                    
-                    
-                    >
+    <ListItem>
+        {results?.items?.map((info, index) => {
+        const description = info.volumeInfo.description?.substring(0, maxLength) ?? "No description available.";
+        return (
+        <Card className="book-card" key={index}>            
+        <CardHeader 
+            key={index} 
+            header={<div><h4>{info.volumeInfo.title}
+            </h4>
+            { info?.volumeInfo?.authors &&
+            <p key={index}>By: {info.volumeInfo?.authors?.join(', ')}</p>
+        }
+            </div>}  
+            image={<img
+                className="image-styles"
+                src={info.volumeInfo.imageLinks?.thumbnail ?? "..../src/assets/no-image.png"}
+            />}
+            description={description}    
 
-                    </CardHeader>
-                  </Card>))}
+        />
+        </Card>)})}
 
+           
         </ListItem>
     </>
-    )
+    
 
+    )
 }
 
 export default BookResultListComponent;
