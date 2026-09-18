@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { ProgressBar } from '@fluentui/react-components';
-import { TitleResponse } from "../types/BookResponseTypes"
-import SearchBoxComponent from '../SearchBox/SearchBox'
 import BookResultListComponent from '../BookCardList/BookCardList';
 import PaginationComponent from '../Pagination/Pagination';
-import "./SearchPage.css"
+import SearchBoxComponent from '../SearchBox/SearchBox'
+import { TitleResponse } from "../types/BookResponseTypes"
 import usePagination from '../../hooks/usePagination';
+import "./SearchPage.css"
+
 
 const PAGE_LIMIT: number = 10;
 export default function SearchPage(){
@@ -47,7 +48,6 @@ export default function SearchPage(){
         await executeFetch(query, 1);
       }
 
-      console.log(pageNumber)
 
     return (
         <>
@@ -57,7 +57,7 @@ export default function SearchPage(){
         </div>
         { result && <BookResultListComponent results={result} ></BookResultListComponent>}
         <footer>
-        {result.totalItems > 0 && <PaginationComponent currentPage={pageNumber} pageNumbers={pageNumbers} onPageSelect={handlePageChange}/>}
+        {result.totalItems > 0 && <PaginationComponent totalPages={pageNumbers.length} currentPage={pageNumber} pageNumbers={pageNumbers} onPageSelect={handlePageChange}/>}
         </footer>
 
         </>

@@ -1,12 +1,19 @@
 .pagination-container {
-    list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
-    gap: 2px;
+    gap: 12px;
 
     .btn-style {
-        color: black;
+        color: black; 
+        /* width: 16px;
+        height: 32px; */
+        border-radius: 50%;
+    }
+
+    .pagination-list {
+        display: flex;
+        gap: 4px;
     }
 
 }

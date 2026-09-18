@@ -22,7 +22,7 @@ export default function SearchBoxComponent ({ onSearchSubmit }) {
     return (
         <div className='search-container'>
         <p color='black'>Search</p>
-        <SearchBox className={styles.searchBar} placeholder='Enter Author, Title, or ISBN' onChange={(_, v) => setQuery(v.value)} onKeyDown={enterKeyPressed}></SearchBox>
+        <SearchBox className={styles.searchBar} placeholder='Search by Author, Title, or ISBN' onChange={(_, v) => setQuery(v.value)} onKeyDown={enterKeyPressed}></SearchBox>
         </div>
     )
 }
