@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ProgressBar } from '@fluentui/react-components';
 import { TitleResponse } from "../types/BookResponseTypes"
 import SearchBoxComponent from '../SearchBox/SearchBox'
@@ -15,17 +15,18 @@ export default function SearchPage(){
     const [currentQuery, setQuery] = useState<string>("")
 
     const executeFetch = async (query: string, page: number = 1) => {
+        if (!query.trim()) return
         try {
             setLoading(true)
-            const response = await fetch(`http://127.0.0.1:8000/search?q=${encodeURIComponent(query)}&page=${page}&per_page=10`);
+
+            const response = await fetch(`http://127.0.0.1:8000/search?q=${encodeURIComponent(query)}&page=${page}&per_page=5`);
 
             if (!response.ok){
                 throw new Error('Network response failed');
             }
-
             const res = await response.json();
             setResults(res)
-
+            
         } catch(err) {
             setError(err.message)
         } finally {
@@ -39,19 +40,23 @@ export default function SearchPage(){
         onPageChange: () => executeFetch(currentQuery, pageNumber)
       })
 
+
+
+      useEffect(() => {
+        if (!currentQuery) {
+            return
+        }
+        executeFetch(currentQuery, pageNumber)
+      }, [pageNumber])
+
+
       async function handleSearchSubmit(query: string){
         setQuery(query);
         resetPagination()
-        await executeFetch(query, 1);
+        await executeFetch(query);
+
       }
 
-
-
-
-
-      console.log(pageNumber, pageNumbers)
-
-      console.log(result)
 
     return (
         <>
@@ -61,7 +66,7 @@ export default function SearchPage(){
         </div>
         { result && <BookResultListComponent results={result} ></BookResultListComponent>}
         <footer>
-        <PaginationComponent currentPage={pageNumber} pageNumbers={pageNumbers} onPageSelect={handlePageChange}/>
+        {result.totalItems > 0 && <PaginationComponent currentPage={pageNumber} pageNumbers={pageNumbers} onPageSelect={handlePageChange}/>}
         </footer>
 
         </>

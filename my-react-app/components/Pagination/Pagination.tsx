@@ -8,7 +8,7 @@ export default function PaginationComponent({ currentPage, pageNumbers, onPageSe
         <div className='pagination-container'>
             { pageNumbers.map((page: number) => {
                 return (
-                <Button className='btn-style' key={page} onClick={() => onPageSelect(page)}>{page}</Button>)
+                <Button shape="rounded" className='btn-style' key={page} onClick={() => onPageSelect(page)}>{page}</Button>)
 
             }) }
         </div>
