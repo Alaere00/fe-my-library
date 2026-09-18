@@ -1,5 +1,6 @@
 import React from "react"
 import {
+    Button,
     Card,
     CardHeader,
     ListItem, 
@@ -13,7 +14,7 @@ interface BookListProps {
 }
 
 const BookResultListComponent = ({ results }: BookListProps  ) => {
-    const maxLength: number = 170;
+    const maxLength: number = 200;
 
     return (
         <>
@@ -37,6 +38,8 @@ const BookResultListComponent = ({ results }: BookListProps  ) => {
             description={description}    
 
         />
+
+        <Button style={{ width: 16, height: 16}} shape="circular">Read More</Button>
         </Card>)})}
 
            

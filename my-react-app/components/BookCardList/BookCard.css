@@ -1,6 +1,7 @@
 .book-card {
     height: 180px;
     margin: 10px;
+    width: 960px;
 
     .image-styles {
         height: 150px;
