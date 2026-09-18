@@ -37,26 +37,17 @@ export default function SearchPage(){
       const { pageNumber, pageNumbers, handlePageChange, resetPagination} = usePagination({
         totalItems: result?.totalItems ?? 0,
         pageLimit: PAGE_LIMIT,
-        onPageChange: () => executeFetch(currentQuery, pageNumber)
+        onPageChange: (newPage) => executeFetch(currentQuery, newPage)
       })
-
-
-
-      useEffect(() => {
-        if (!currentQuery) {
-            return
-        }
-        executeFetch(currentQuery, pageNumber)
-      }, [pageNumber])
 
 
       async function handleSearchSubmit(query: string){
         setQuery(query);
         resetPagination()
-        await executeFetch(query);
-
+        await executeFetch(query, 1);
       }
 
+      console.log(pageNumber)
 
     return (
         <>
