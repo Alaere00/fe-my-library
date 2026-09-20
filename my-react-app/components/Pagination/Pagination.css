@@ -3,14 +3,21 @@
     padding: 0; */
     display: flex;
     justify-content: center;
+    align-items: center;
     list-style-type: none;
     gap: 6px;
+    white-space: nowrap;
 
-    .page-item.active {
+    
+    .page-item {
+        width: 35px;
+        height: 35px;
+        box-sizing: border-box;
+
+        &.active {
         background-color: #D3D3FF; 
-        /* width: 16px;
-        height: 32px; */
     }
+}
 
     .pagination-list {
         display: flex;

@@ -34,20 +34,17 @@ export default function PaginationComponent({ currentPage, totalPages, pageNumbe
     }
 
     return (
-        <div className="pagination-container">
-            <span> Page {currentPage} of {totalPages} </span>
-            {/* <div> */}
-                <Button disabled={currentPage === 1} onClick={() => onPageSelect(currentPage - 1)} ><ChevronLeft16Filled/></Button>
-
-                <ul className="pagination-list">
+        <nav>
+            <ul className='pagination-container'>
+                <li>
+                    <Button className='page-item' disabled={currentPage === 1} onClick={() => onPageSelect(currentPage - 1)} ><ChevronLeft16Filled/></Button>
                 { getPageNumbers().map((p: number, i: number) => (
-                 
-                    <Button key={i} shape="circular" className='btn-style' onClick={() => onPageSelect(p)}>{p}</Button>)
+                    <Button key={i} className={`page-item ${currentPage === p ? 'active': ''}`} onClick={() => onPageSelect(p)}>{p}</Button>)
                 ) }
+                <Button className='page-item' disabled={currentPage == totalPages} onClick={() => onPageSelect(currentPage + 1)}><ChevronRight16Filled/></Button>
+                </li>
+                <span style={{ "verticalAlign": "center"}}> Page {currentPage} of {totalPages} </span>
                 </ul>
-
-                <Button disabled={currentPage == totalPages} onClick={() => onPageSelect(currentPage + 1)}><ChevronRight16Filled/></Button>
-            {/* </div>  */}
-        </div>
+        </nav>
     )
 }
