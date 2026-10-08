@@ -58,7 +58,7 @@ const BookResultListComponent = ({ results }: BookListProps  ) => {
             description={description}    
 
         />
-        <Button key={info.id} onClick={() => handleFavoriteClick(info.id)} icon={isFavorite.has(info.id)? <Star28Filled /> : <Star28Regular/>} />
+        <Button style={{ border: "none"}} key={info.id} onClick={() => handleFavoriteClick(info.id)} icon={isFavorite.has(info.id)? <Star28Filled /> : <Star28Regular/>} />
    
         </div>           
    
