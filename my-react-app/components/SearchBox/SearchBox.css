@@ -1,6 +1,35 @@
 .search-container {
     justify-content: space-between;
+   
     display: flex;
+    align-items: center;
+    box-sizing: border-box;
     gap: 10px;
 
+    .search-bar{
+        width: 500px;
+    }
+
+}
+
+.login-container{
+    display: flex;
+    flex-direction: column;
+
+}
+
+
+.divider-style {
+    width: 100%;
+    align-self: stretch;
+    margin: 0 0 0 0;  /* (top, bottom, left, right) */
+    /* height: 12px; */
+    
+
+
+    &.fui-Divider::before,
+    &.fui-Divider::after {
+        border-top-color: #4e4e94;
+        border-width: 7px;
+    }
 }
