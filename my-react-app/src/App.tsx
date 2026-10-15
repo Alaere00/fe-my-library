@@ -1,4 +1,3 @@
-import * as React from 'react'
 import SearchPage from '../components/SearchPage/SearchPage'
 
 function App() {
