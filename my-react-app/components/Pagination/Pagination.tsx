@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button } from '@fluentui/react-components';
 import { ChevronLeft16Filled, ChevronRight16Filled } from "@fluentui/react-icons"
 import "./Pagination.css"

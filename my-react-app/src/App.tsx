@@ -1,10 +1,15 @@
-import SearchPage from '../components/SearchPage/SearchPage'
+import { Routes, Route } from 'react-router-dom';
+import SearchPage from '../components/SearchPage/SearchPage';
+import UserLogin from '../components/UserLogin/UserLogin';
 
 function App() {
   return (
-    <>
-    <SearchPage></SearchPage>
-    </>
+    <Routes>
+      <Route path="/" element={<SearchPage/>} />
+      <Route path="/sign-in" element={<UserLogin />} />
+    </Routes>
+
+  
   )
 }
 
