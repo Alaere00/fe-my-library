@@ -4,6 +4,7 @@ export interface TitleResponse {
 }
 
 interface ItemsResponse {
+    id: string
     volumeInfo: VolumeInfo
 
 }
