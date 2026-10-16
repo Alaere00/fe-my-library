@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { ProgressBar } from '@fluentui/react-components';
+import { useState } from 'react'
+import { ProgressBar, Title1 } from '@fluentui/react-components';
 import BookResultListComponent from '../BookCardList/BookCardList';
 import PaginationComponent from '../Pagination/Pagination';
 import SearchBoxComponent from '../SearchBox/SearchBox'
@@ -10,7 +10,7 @@ import "./SearchPage.css"
 
 const PAGE_LIMIT: number = 10;
 export default function SearchPage(){
-    const [result, setResults] = useState<TitleResponse>({} as TitleResponse)
+    const [results, setResults] = useState<TitleResponse>({} as TitleResponse)
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>()
     const [currentQuery, setQuery] = useState<string>("")
@@ -36,7 +36,7 @@ export default function SearchPage(){
       };
 
       const { pageNumber, pageNumbers, handlePageChange, resetPagination} = usePagination({
-        totalItems: result?.totalItems ?? 0,
+        totalItems: results?.totalItems ?? 0,
         pageLimit: PAGE_LIMIT,
         onPageChange: (newPage) => executeFetch(currentQuery, newPage)
       })
@@ -55,9 +55,13 @@ export default function SearchPage(){
         <div className='search-container'>
         <SearchBoxComponent onSearchSubmit={handleSearchSubmit}></SearchBoxComponent>
         </div>
-        { result && <BookResultListComponent results={result} ></BookResultListComponent>}
+        { results.totalItems > 0 && ( 
+             <><Title1 style={{ color: '#240A1B'}}>Keyword Search: {currentQuery}</Title1>
+             <BookResultListComponent results={results} ></BookResultListComponent>
+             </>
+        )}
         <footer>
-        {result.totalItems > 0 && <PaginationComponent totalPages={pageNumbers.length} currentPage={pageNumber} pageNumbers={pageNumbers} onPageSelect={handlePageChange}/>}
+        {results.totalItems > 0 && <PaginationComponent totalPages={pageNumbers.length} currentPage={pageNumber} pageNumbers={pageNumbers} onPageSelect={handlePageChange}/>}
         </footer>
 
         </>

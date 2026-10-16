@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import {
     Button,
     Card,
@@ -11,7 +11,6 @@ import { Star28Regular, Star28Filled  } from "@fluentui/react-icons"
 import "./BookCard.css"
 
 interface BookListProps {
-    id: string
     results: TitleResponse
 }
 

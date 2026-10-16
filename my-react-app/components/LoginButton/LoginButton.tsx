@@ -5,8 +5,6 @@ import "./LoginButton.css"
 export default function LoginButton() {
     let navigate = useNavigate()
 
-
-
     return (
         <>
         <Button className="login-btn" onClick={() => navigate('/sign-in')}>Login</Button>

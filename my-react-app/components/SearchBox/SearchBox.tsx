@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { SearchBox, Divider } from '@fluentui/react-components';
+import { useState } from 'react';
+import { SearchBox, Divider, Label } from '@fluentui/react-components';
 import './SearchBox.css'
 import LoginButton from '../LoginButton/LoginButton';
 
@@ -14,11 +14,12 @@ export default function SearchBoxComponent ({ onSearchSubmit }) {
     }
 
     return (
-        <div>
+        <div className='feed'>
             <div className='login-container'>
+            <Label className="header">MY-BOOKSHELF</Label>
             <LoginButton></LoginButton>
-            <Divider className='divider-style' appearance='brand'/>
             </div>
+            <Divider className='divider-style' appearance='brand'/>
 
         <div className='search-container'>
             <p color='black'>Search</p>
