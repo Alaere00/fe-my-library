@@ -6,12 +6,12 @@ import {
     ListItem, 
 
 } from "@fluentui/react-components"
-import type { TitleResponse } from "../types/BookResponseTypes"
+import type { BookSearchResult } from "../types/BookResponseTypes"
 import { Star28Regular, Star28Filled  } from "@fluentui/react-icons"
 import "./BookCard.css"
 
 interface BookListProps {
-    results: TitleResponse
+    results: BookSearchResult
 }
 
 const BookResultListComponent = ({ results }: BookListProps  ) => {
@@ -36,28 +36,28 @@ const BookResultListComponent = ({ results }: BookListProps  ) => {
     return (
         <>
     <ListItem>
-        {results?.items?.map((info, index) => {
-        const description = info.volumeInfo.description?.substring(0, maxLength) ?? "No description available.";
+        {results?.hits?.map((info, index) => {
+        const description = info.description?.substring(0, maxLength) ?? "No description available.";
         return (
         <Card className="book-card" key={index}> 
         <div className="card-header">
 
         <CardHeader 
             key={index} 
-            header={<div><h4>{info.volumeInfo.title}
+            header={<div><h4>{info.title}
             </h4>
-            { info?.volumeInfo?.authors &&
-            <p key={index}>By: {info.volumeInfo?.authors?.join(', ')}</p>
+            { info?.author_names &&
+            <p key={index}>By: {info.author_names?.join(', ')}</p>
         }
             </div>}  
             image={<img
                 className="image-styles"
-                src={info.volumeInfo.imageLinks?.thumbnail ?? "..../src/assets/no-image.png"}
+                src={info?.image?.url ?? "..../src/assets/no-image.png"}
             />}
             description={description}    
 
         />
-        <Button style={{ border: "none"}} key={info.id} onClick={() => handleFavoriteClick(info.id)} icon={isFavorite.has(info.id)? <Star28Filled /> : <Star28Regular/>} />
+        {/* <Button style={{ border: "none"}} key={info.id} onClick={() => handleFavoriteClick(info.id)} icon={isFavorite.has(info.id)? <Star28Filled /> : <Star28Regular/>} /> */}
    
         </div>           
    

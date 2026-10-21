@@ -3,14 +3,14 @@ import { ProgressBar, Title1 } from '@fluentui/react-components';
 import BookResultListComponent from '../BookCardList/BookCardList';
 import PaginationComponent from '../Pagination/Pagination';
 import SearchBoxComponent from '../SearchBox/SearchBox'
-import { TitleResponse } from "../types/BookResponseTypes"
+import {  BookSearchResult} from "../types/BookResponseTypes"
 import usePagination from '../../hooks/usePagination';
 import "./SearchPage.css"
 
 
 const PAGE_LIMIT: number = 10;
 export default function SearchPage(){
-    const [results, setResults] = useState<TitleResponse>({} as TitleResponse)
+    const [results, setResults] = useState<BookSearchResult>({} as BookSearchResult)
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>()
     const [currentQuery, setQuery] = useState<string>("")
@@ -20,11 +20,10 @@ export default function SearchPage(){
         try {
             setLoading(true)
 
-            const response = await fetch(`http://127.0.0.1:8000/search?q=${encodeURIComponent(query)}&page=${page}&per_page=5`);
+            const response = await fetch(`http://127.0.0.1:8000/search/general?query=${encodeURIComponent(query)}`);
 
-            if (!response.ok){
-                throw new Error('Network response failed');
-            }
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+       
             const res = await response.json();
             setResults(res)
             
@@ -36,7 +35,7 @@ export default function SearchPage(){
       };
 
       const { pageNumber, pageNumbers, handlePageChange, resetPagination} = usePagination({
-        totalItems: results?.totalItems ?? 0,
+        totalItems: results?.found ?? 0,
         pageLimit: PAGE_LIMIT,
         onPageChange: (newPage) => executeFetch(currentQuery, newPage)
       })
@@ -55,13 +54,13 @@ export default function SearchPage(){
         <div className='search-container'>
         <SearchBoxComponent onSearchSubmit={handleSearchSubmit}></SearchBoxComponent>
         </div>
-        { results.totalItems > 0 && ( 
+        { results.found > 0 && ( 
              <><Title1 style={{ color: '#240A1B'}}>Keyword Search: {currentQuery}</Title1>
              <BookResultListComponent results={results} ></BookResultListComponent>
              </>
         )}
         <footer>
-        {results.totalItems > 0 && <PaginationComponent totalPages={pageNumbers.length} currentPage={pageNumber} pageNumbers={pageNumbers} onPageSelect={handlePageChange}/>}
+        {results.found > 0 && <PaginationComponent totalPages={pageNumbers.length} currentPage={pageNumber} pageNumbers={pageNumbers} onPageSelect={handlePageChange}/>}
         </footer>
 
         </>
