@@ -5,12 +5,13 @@ import PaginationComponent from '../Pagination/Pagination';
 import SearchBoxComponent from '../SearchBox/SearchBox'
 import {  BookSearchResult} from "../types/BookResponseTypes"
 import usePagination from '../../hooks/usePagination';
+import { results } from './tempData';
 import "./SearchPage.css"
 
 
 const PAGE_LIMIT: number = 10;
 export default function SearchPage(){
-    const [results, setResults] = useState<BookSearchResult>({} as BookSearchResult)
+    // const [results, setResults] = useState<BookSearchResult>({} as BookSearchResult)
     const [loading, setLoading] = useState<boolean>(false)
     const [error, setError] = useState<string>()
     const [currentQuery, setQuery] = useState<string>("")
@@ -25,7 +26,7 @@ export default function SearchPage(){
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
        
             const res = await response.json();
-            setResults(res)
+            // setResults(res)
             
         } catch(err) {
             setError(err.message)
