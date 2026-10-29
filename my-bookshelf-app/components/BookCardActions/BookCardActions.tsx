@@ -4,7 +4,6 @@ import {
     Button,
     Menu,
     MenuTrigger,
-    MenuList,
     MenuItem,
     MenuPopover,
     JSXElement,
@@ -64,7 +63,7 @@ const DetailedActions = () => {
             <MenuGroup>
             <MenuGroupHeader>Progress</MenuGroupHeader>
                 <div className='menu-section-body'>
-                <ProgressBar className='progress-bar' thickness="large" value={0.7}/>
+                <ProgressBar className='progress-bar' thickness="large" value={0}/>
                 </div>
             </MenuGroup>
         

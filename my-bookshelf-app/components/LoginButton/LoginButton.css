@@ -1,24 +1,24 @@
 .login-btn.fui-Button {
-    background-color: #4b1530;
+    background-color: #B572e8;
     border: none;
     color: white;
     width: 50px;
     height: 40px;
 
     &:hover {
-        background-color: #6F2F52;
+        background-color: #B49EF4;
         color: white;
         border: none;
     }
 
     &:hover:active {
-        background-color: #6F2F52;
+        background-color: #B49EF4;
         color: white;
         border: none;
     }
 
     &:focus-visible {
-        outline: 2px solid #6F2F52;
+        outline: 2px solid #B49EF4;
         outline-offset: 2px;
     }
 }
