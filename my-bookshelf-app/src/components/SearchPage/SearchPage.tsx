@@ -4,7 +4,7 @@ import BookResultListComponent from '../BookCardList/BookCardList';
 import PaginationComponent from '../Pagination/Pagination';
 import SearchBoxComponent from '../SearchBox/SearchBox'
 import {  BookSearchResult} from "../types/BookResponseTypes"
-import usePagination from '../../hooks/usePagination';
+import usePagination from '../../../hooks/usePagination';
 import { results } from './tempData';
 import "./SearchPage.css"
 

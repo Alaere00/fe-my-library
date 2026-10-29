@@ -14,9 +14,18 @@
   "dependencies": {
     "@fluentui/react-components": "^9.74.6",
     "@fluentui/react-icons": "^2.0.341",
+    "@tailwindcss/typography": "^0.5.20",
+    "@untitledui/icons": "^0.0.23",
     "react": "^18.3.1",
+    "react-aria": "^3.53.1",
+    "react-aria-components": "^1.22.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.18.4"
+    "react-router-dom": "^7.18.4",
+    "react-stately": "^3.51.0",
+    "tailwind-merge": "^3.7.0",
+    "tailwindcss": "^4.3.3",
+    "tailwindcss-animate": "^1.0.7",
+    "tailwindcss-react-aria-components": "^2.2.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "latest",
