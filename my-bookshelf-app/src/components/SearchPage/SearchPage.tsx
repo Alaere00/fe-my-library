@@ -2,11 +2,11 @@ import { useState } from 'react'
 import { ProgressBar, Title1 } from '@fluentui/react-components';
 import BookResultListComponent from '../BookCardList/BookCardList';
 import PaginationComponent from '../Pagination/Pagination';
-import SearchBoxComponent from '../SearchBox/SearchBox'
 import {  BookSearchResult} from "../types/BookResponseTypes"
 import usePagination from '../../../hooks/usePagination';
 import { results } from './tempData';
 import "./SearchPage.css"
+import { SearchComponent } from '../SearchComponent/SearchComponent';
 
 
 const PAGE_LIMIT: number = 10;
@@ -53,7 +53,7 @@ export default function SearchPage(){
         <>
         { loading && <ProgressBar className='loading-bar'/> }
         <div className='search-container'>
-        <SearchBoxComponent onSearchSubmit={handleSearchSubmit}></SearchBoxComponent>
+        <SearchComponent />
         </div>
         { results.found > 0 && ( 
              <><Title1 style={{ color: '#240A1B'}}>Keyword Search: {currentQuery}</Title1>
