@@ -2,6 +2,8 @@ export interface BookSearchResult {
     found: number;            
     hits: BookInfo[];
     page: number;  
+    per_page: number;
+    total_pages: number
 }
 
 export interface BookInfo {
