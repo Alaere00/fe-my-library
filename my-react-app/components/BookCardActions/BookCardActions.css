@@ -1,0 +1,19 @@
+.actions-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+}
+
+.menu-popover {
+    min-width: 240px;
+}
+
+.menu-section-body {
+    padding: 0 10px 8px;
+}
+
+.menu-section-label {
+    margin-top: 4px;
+    font-size: 12px;
+}

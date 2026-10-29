@@ -1,18 +1,18 @@
 .book-card {
-    height: 280px;
+    height: 398px;
     margin: 10px;
-    width: 960px;
+    width: 320px;
 
     .image-styles {
-        height: 150px;
-        width: 116px;
+        height: 40px;
+        width: 35px;
     }
 
     .card-header {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        height: 100%;
+        /* height: 100%; */
     }
 }
 

@@ -1,6 +1,7 @@
 import { Button } from '@fluentui/react-components'
 import './BookCardComponent.css'
 import { ArrowRight16Regular, StarFilled } from '@fluentui/react-icons';
+import { BookCardActions } from '../BookCardActions/BookCardActions';
 
 interface BookCardProps {
     image?: string;
@@ -44,7 +45,8 @@ export function BookCardComponent(info : BookCardProps ){
             <p>{`${info?.numberOfPages} pages`}</p>
         </div>
         {/* view more button -> navigates to book details page (make the entire card clickable) */}  
-        <Button className='book-detaiils' iconPosition='after' icon={<ArrowRight16Regular/>} style={{ border: 'none'}} >View Book Details</Button>
+        {/* <Button className='book-detaiils' iconPosition='after' icon={<ArrowRight16Regular/>} style={{ border: 'none'}} >View Book Details</Button> */}
+        <BookCardActions />
         </div>
     )
 
