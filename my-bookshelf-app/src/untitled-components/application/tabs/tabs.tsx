@@ -2,7 +2,7 @@ import type { ComponentPropsWithRef, FC, ReactNode } from "react";
 import { createContext, isValidElement, useContext } from "react";
 import type { TabListProps as AriaTabListProps, TabProps as AriaTabProps, TabRenderProps as AriaTabRenderProps } from "react-aria-components";
 import { Tab as AriaTab, TabList as AriaTabList, TabPanel as AriaTabPanel, Tabs as AriaTabs, TabsContext, useSlottedContext } from "react-aria-components";
-import { Badge } from "@/src/untitled-components/base/badges/badges";
+import { Badge } from "@/untitled-components/base/badges/badges";
 import { cx } from "@/utils/cx";
 import { isReactComponent } from "@/utils/is-react-component";
 

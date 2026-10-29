@@ -10,25 +10,20 @@ enum SelectedTab {
 
 }
 
-const tabs = [
-    { id: "all", label: "All catalogs"}, 
-    { id: "isbn", label: "ISBN"},
-    { id: "title", label: "Title"},
-    { id: "author", label: "Author"},
+const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
+    id: name.toLowerCase(), 
+    label: value
+}))
 
-
-]
 export const SearchComponent = () => {
     const [selectedTab, setSelectedTab ] = useState<string>(SelectedTab.ALL)
+    const handleSelectionChange = (id: string) => {
+        setSelectedTab(id as SelectedTab)
+    }
+    // note to self, first render is all-catalogs?? Probably a bug
     return (
         <div>
-            <NativeSelect
-                aria-label="Tabs"
-                value={selectedTab}
-                onChange={(event) => setSelectedTab(event.target.value)}
-                options={tabs.map((tab) => ({ label: tab.label, value: tab.id}))}
-                />
-                <Tabs>
+                <Tabs onSelectionChange={handleSelectionChange}>
                 <Tabs.List items={tabs}>
                     {(tab) => <Tabs.Item {...tab} />}
                 </Tabs.List>
