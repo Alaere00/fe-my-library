@@ -13,46 +13,14 @@ const CatalogMap = {
 
 
 }
-export default function SearchBarComponent ({ catalog }) {
+export default function SearchBarComponent ({ onSearch, catalog }) {
     const [query, setQuery] = useState('')
-    const [loading, setLoading] = useState<boolean>(false)
-    const [error, setError] = useState<string>()
-
-
-    const executeFetch = async (query: string, page: number = 1) => {
-        if (!query.trim()) return
-        try {
-            setLoading(true)
-
-            const response = await fetch(`http://localhost:8000/search/general?query=${encodeURIComponent(query)}`);
-
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-       
-            const res = await response.json();
-            // setResults(res)
-        } catch(err) {
-            setError(err.message)
-        } finally {
-            setLoading(false)
-        }
-      };
-
-    //   const { pageNumber, pageNumbers, handlePageChange, resetPagination} = usePagination({
-    //     totalItems: results?.found ?? 0,
-    //     pageLimit: PAGE_LIMIT,
-    //     onPageChange: (newPage) => executeFetch(currentQuery, newPage)
-    //   })
-
-
-      async function handleSearchSubmit(query: string){
-        await executeFetch(query, 1);
-      }
 
     return (
         <>
         <div className='search-container'>
-            <Input className="search-bar" onChange={(query) => setQuery(query)} placeholder={CatalogMap[catalog]}></Input>
-            <Button type='submit' onClick={() => handleSearchSubmit(query)} size="md">Search</Button>
+            <Input className="search-bar" onChange={(q) => setQuery(q)} placeholder={CatalogMap[catalog]}></Input>
+            <Button type='submit' onClick={() => onSearch(query)} size="md">Search</Button>
         </div>  
         </>
     )

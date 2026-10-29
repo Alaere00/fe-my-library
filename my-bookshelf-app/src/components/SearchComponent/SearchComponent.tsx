@@ -7,7 +7,6 @@ enum SelectedTab {
     ISBN = "ISBN",
     TITLE = "Title",
     AUTHOR = "Author",
-
 }
 
 const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
@@ -15,13 +14,12 @@ const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
     label: value
 }))
 
-export const SearchComponent = () => {
+export const SearchComponent = ({ onSearch }) => {
     const [selectedTab, setSelectedTab ] = useState<string>(SelectedTab.ALL)
 
     const handleSelectionChange = (id: string) => {
         setSelectedTab(id as SelectedTab)
     }
-
     // note to self, first render is all-catalogs?? Probably a bug
     return (
         <div>
@@ -30,10 +28,7 @@ export const SearchComponent = () => {
                 {(tab) => <Tabs.Item {...tab} />}
             </Tabs.List>
             </Tabs>
-
-
-            <SearchBarComponent catalog={selectedTab}/>
-\
+            <SearchBarComponent onSearch={onSearch} catalog={selectedTab}/>
         </div>
 
     )
