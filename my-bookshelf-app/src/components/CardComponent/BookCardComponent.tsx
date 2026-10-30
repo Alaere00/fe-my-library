@@ -1,7 +1,8 @@
-import { Button } from '@fluentui/react-components'
-import './BookCardComponent.css'
+import { useState } from 'react';
 import { ArrowRight16Regular, StarFilled } from '@fluentui/react-icons';
 import { BookCardActions } from '../BookCardActions/BookCardActions';
+import { TagGroup, TagList, Tag } from '@/untitled-components/base/tags/tags';
+import './BookCardComponent.css'
 
 interface BookCardProps {
     image?: string;
@@ -12,10 +13,25 @@ interface BookCardProps {
     numberOfPages?: number;
     className?: string;
     children?: React.ReactNode
+    id?: number;
 
 }
 
 export function BookCardComponent(info : BookCardProps ){
+
+    // const [isFavorite, setIsFavorite] = useState<Set<number>>(new Set());
+
+    // const handleFavoriteClick = (id: number) => {
+    //     setIsFavorite(prev => {
+    //         const next = new Set(prev);
+    //         if (next.has(id)) next.delete(id);
+    //         else next.add(id);
+    //         return next;
+    //     });
+    //     console.log(`Favorite clicked for book at index: ${id}`);
+    //     console.log(isFavorite)
+    // }
+
     return (
         <div className='book-card'>
             <div>
@@ -25,20 +41,25 @@ export function BookCardComponent(info : BookCardProps ){
                 alt="Book Cover"
                 />
             </div>
-        {/* title */}
+
         <div className='book-title' >
             <h3>{info?.title}</h3> 
         </div>
-        {/* author(s) name(s) */}
+
         <div className='book-authors'>
             <p>{`by ${info?.authors?.join(', ')}`}</p>
         </div>
-        {/* genres */} 
+
         <div className='book-genres'>
-            <p>{info?.genres?.join(', ')}</p>
+            <TagGroup label="Tags" size="md">
+            <TagList className="tag-list">
+                {info?.genres?.map((genre, index) => (
+                <Tag className="tags" key={index}>{genre}</Tag>
+                ))}
+                </TagList>
+            </TagGroup>
         </div>
 
-        {/* published year */} {/* number of pages */}
         <div className='misc-details'>
             <p>{info?.publishedYear ? `Published: ${info.publishedYear}`: `'Unknown Year'`}</p>
             <StarFilled style={{ height: '10px', width: '10px'}} />
