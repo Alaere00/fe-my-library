@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Tabs } from '@/untitled-components/application/tabs/tabs' 
 import SearchBarComponent from '../SearchBar/SearchBar'
 
-enum SelectedTab {
+export enum SelectedTab {
     ALL = "All catalogs",
     ISBN = "ISBN",
     TITLE = "Title",
@@ -14,12 +14,8 @@ const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
     label: value
 }))
 
-export const SearchComponent = ({ onSearch }) => {
-    const [selectedTab, setSelectedTab ] = useState<string>(SelectedTab.ALL)
+export const SearchComponent = ({ onSearch, selectedTab, handleSelectionChange }) => {
 
-    const handleSelectionChange = (id: string) => {
-        setSelectedTab(id as SelectedTab)
-    }
     // note to self, first render is all-catalogs?? Probably a bug
     return (
         <div>

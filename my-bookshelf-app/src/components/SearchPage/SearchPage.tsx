@@ -1,12 +1,12 @@
 import { useState } from 'react'
-import { Title1 } from '@fluentui/react-components';
 import BookResultListComponent from '../BookCardList/BookCardList';
 import {  BookSearchResult} from "../types/BookResponseTypes"
 import { LoadingIndicator } from "@/untitled-components/application/loading-indicator/loading-indicator"
 import * as Paginations from '@/untitled-components/application/pagination/pagination';
-import { SearchComponent } from '../SearchComponent/SearchComponent';
-// import { results } from './tempData';
+import { SearchComponent, SelectedTab } from '../SearchComponent/SearchComponent';
 import "./SearchPage.css"
+import { Header } from '../Header/Header';
+import { searchCatalog } from '@/services/BookService';
 
 
 
@@ -22,12 +22,7 @@ export default function SearchPage(){
         if (!query.trim()) return
         try {
             setLoading(true)
-
-            const response = await fetch(`http://localhost:8000/search/general?query=${encodeURIComponent(query)}&page=${page}&per_page=${perPage}`);
-
-            if (!response.ok) throw new Error(`HTTP ${response.status}`);
-       
-            const res = await response.json();
+            const res = await searchCatalog(selectedTab, query, page, perPage)
             setResults(res)
             
         } catch(err) {
@@ -49,25 +44,36 @@ export default function SearchPage(){
         await executeFetch(currentQuery, page);
       }
 
+      const [selectedTab, setSelectedTab ] = useState<string>(SelectedTab.ALL)
+
+      const handleSelectionChange = (id: string) => {
+          setSelectedTab(id as SelectedTab)
+      }
+
 
     return (
-        <>
+        <div className='container'>
+          <Header />
+          <div style={{ marginTop: 35}}>
+          <h1 style={{ fontWeight: "bold", fontSize: 45, marginBottom: 20}}>Discover your next read!</h1>
+          <p>Search millions of books, shelve, rate, and get personalized recommendations. </p>
+          </div>
         <div className='search-container'>
-        <SearchComponent onSearch={handleSearchSubmit} />
+        <SearchComponent handleSelectionChange={handleSelectionChange} selectedTab={selectedTab} onSearch={handleSearchSubmit} />
         </div>
-        {results.found > 0 && <div style={{ margin: "10px 10px"}}>
+        {results?.found > 0 && <div style={{ margin: "10px 10px"}}>
           <p>Total Results: {results.found }</p>
           </div>}
-        { results.found > 0 && ( 
+        { results?.found > 0 && ( 
              <>
              <BookResultListComponent results={results} ></BookResultListComponent>
              </>
         )}
         { loading &&  <LoadingIndicator type="dot-circle" size="md" label="Loading..." />}
         <footer>
-        {results.total_pages > 0 && <Paginations.PaginationButtonGroup align="center" total={results.total_pages} page={currentPage} onPageChange={handlePageChange} />}
+        {results.total_pages > 0 && <Paginations.PaginationButtonGroup align="center" total={results?.total_pages} page={currentPage} onPageChange={handlePageChange} />}
         </footer>
 
-        </>
+        </div>
     )
 }

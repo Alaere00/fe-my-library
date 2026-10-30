@@ -10,9 +10,8 @@ const CatalogMap = {
     "isbn": "Search books by ISBN",
     "title": "Search books by Title",
     "author": "Search books by Author"
-
-
 }
+
 export default function SearchBarComponent ({ onSearch, catalog }) {
     const [query, setQuery] = useState('')
 
