@@ -117,6 +117,13 @@
     --color-white: rgb(255 255 255);
     --color-black: rgb(0 0 0);
 
+    /* App Palette */
+    --palette-forest:  rgb(31, 59, 44);
+    --palette-olive:  rgb(62, 107, 62);
+    --palette-light-moss: rgb(134, 168, 107);
+    --palette-warm-beige:  rgb(200, 194, 165);
+    --palette-earthy-brown:  rgb(75, 58, 42);
+
     /* These will be inverted in dark mode. */
     --color-alpha-white: rgb(255 255 255);
     --color-alpha-black: rgb(0 0 0);

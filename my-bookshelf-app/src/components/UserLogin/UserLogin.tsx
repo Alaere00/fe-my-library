@@ -4,7 +4,7 @@ import { Button } from "@/untitled-components/base/buttons/button"
 import { Input } from "@/untitled-components/base/input/input"
 import { Label } from '@/untitled-components/base/input/label';
 import { useNavigate } from 'react-router-dom';
-
+import "./UserLogin.css"
 
 interface LoginCredentials {
   email: string;
@@ -73,7 +73,7 @@ export default function UserLogin(): JSXElement {
 
 <form noValidate autoComplete="off">
       <div className="form-row">
-        <Label className="form-label" >Email: </Label>
+      <Label className="form-label" >Email: </Label>
         <Input 
         type="email" 
         isRequired 
@@ -92,7 +92,7 @@ export default function UserLogin(): JSXElement {
           { error && <p role="alert" className='mt-3 text-sm text-error-primary'>{error}</p>}
       </div>
 
-      <Button style={{ boxShadow: "none", marginTop: 10, width: "100%" }} onClick={() => login({email, password})}>Submit</Button>
+      <Button className="login-btn" onClick={() => login({email, password})}>Submit</Button>
     </form>
 
         <div className="flex center gap-1 text-center ">
