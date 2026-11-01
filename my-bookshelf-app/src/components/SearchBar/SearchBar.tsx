@@ -19,7 +19,7 @@ export default function SearchBarComponent ({ onSearch, catalog }) {
         <>
         <div className='search-container'>
             <Input className="search-bar" onChange={(q) => setQuery(q)} placeholder={CatalogMap[catalog]}></Input>
-            <Button type='submit' onClick={() => onSearch(query)} size="md">Search</Button>
+            <Button className="submit-btn" style={{ boxShadow: "none"}} type='submit' onClick={() => onSearch(query)} size="md">Search</Button>
         </div>  
         </>
     )

@@ -1,6 +1,5 @@
 .search-container {
     flex: 1;
-
     display: flex;
     align-items: center;
     box-sizing: border-box;
@@ -10,19 +9,11 @@
         width: 500px;
     }
 
-}
-
-.login-container{
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    align-items: center;
-
-    .header{
-        color: #240A1B;
-        font-size: medium;
-        font-weight: 600;
+    .submit-btn {
+        background: var(--palette-forest)
     }
 
 
+
 }
+

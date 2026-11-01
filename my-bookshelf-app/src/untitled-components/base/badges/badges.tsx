@@ -1,6 +1,6 @@
 import type { MouseEventHandler, ReactNode } from "react";
 import { X as CloseX } from "@untitledui/icons";
-
+import { Dot } from "@/untitled-components/foundations/dot-icon";
 import { cx } from "@/utils/cx";
 import type { BadgeColors, BadgeTypeToColorMap, BadgeTypes, FlagTypes, IconComponentType, Sizes } from "./badge-types";
 import { badgeTypes } from "./badge-types";
@@ -186,7 +186,7 @@ export const BadgeWithDot = <T extends BadgeTypes>(props: BadgeWithDotProps<T>) 
 
     return (
         <span className={cx(colors.common, sizes[type][size], colors.styles[color].root, className)}>
-            {/* <Dot className={colors.styles[color].addon} size="sm" /> */}
+            <Dot className={colors.styles[color].addon} size="sm" />
             {children}
         </span>
     );

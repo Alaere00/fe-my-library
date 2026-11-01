@@ -37,10 +37,10 @@ export function searchCatalog(catalog, query: string, page: number, perPage: num
 }
 
 
-export async function handleSetRating(rating: number, provider_id: string){
+export async function handleSetRating(providerID: number, rating: number){
     try {
         const token = sessionStorage.getItem("accessToken");
-        const res = await fetch(`http://localhost:8000/my-bookshelf/${provider_id}/rating`, {
+        const res = await fetch(`http://localhost:8000/my-bookshelf/${providerID}/rating`, {
             method: "PATCH", headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,

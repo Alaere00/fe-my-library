@@ -14,10 +14,14 @@ interface BookCardProps {
     className?: string;
     children?: React.ReactNode
     id?: number;
+    rating?: number;
+    handleRating?: (rating: number) => void;
+    readingStatus?: string;
+    onStatusChange?: (status: string) => void;
 
 }
 
-export function BookCardComponent(info : BookCardProps ){
+export function BookCardComponent(info : BookCardProps) {
 
     // const [isFavorite, setIsFavorite] = useState<Set<number>>(new Set());
 
@@ -31,6 +35,13 @@ export function BookCardComponent(info : BookCardProps ){
     //     console.log(`Favorite clicked for book at index: ${id}`);
     //     console.log(isFavorite)
     // }
+
+    const MAX_TAGS = 5;
+    const genres = info?.genres ?? []
+    const hiddenCount = genres.length - MAX_TAGS
+
+
+
 
     return (
         <div className='book-card'>
@@ -53,9 +64,12 @@ export function BookCardComponent(info : BookCardProps ){
         <div className='book-genres'>
             <TagGroup label="Tags" size="md">
             <TagList className="tag-list">
-                {info?.genres?.map((genre, index) => (
+                {genres.slice(0, MAX_TAGS).map((genre, index) => (
                 <Tag className="tags" key={index}>{genre}</Tag>
                 ))}
+                {hiddenCount > 0 && (
+                    <Tag className="tags" key="nore">+{hiddenCount}</Tag>
+                )}
                 </TagList>
             </TagGroup>
         </div>
@@ -67,7 +81,7 @@ export function BookCardComponent(info : BookCardProps ){
         </div>
         {/* view more button -> navigates to book details page (make the entire card clickable) */}  
         {/* <Button className='book-detaiils' iconPosition='after' icon={<ArrowRight16Regular/>} style={{ border: 'none'}} >View Book Details</Button> */}
-        <BookCardActions />
+        <BookCardActions rating={info.rating} handleRating={info.handleRating} readingStatus={info.readingStatus} setReadingStatus={info.onStatusChange} />
         </div>
     )
 

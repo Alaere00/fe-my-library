@@ -1,17 +1,19 @@
-.container {
-    margin-left: 40px;
+.search-header {
+    /* margin-left: 40px; */
 
-    .search-container {
+    /* .search-container {
         background-color: inherit;
         padding-top: 10px;
     
-    
-        .loading-bar {
-            width: 100vw;
-            height: 10px;
-            margin-bottom: 10px;
-        }
-    
-    }
+    } */
 
+    top: 0px;
+    height: 48px;
+    width: 100%;
+
+    .search-content {
+        margin: 148px 0;
+
+    }
 }
+

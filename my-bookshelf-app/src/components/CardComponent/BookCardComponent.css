@@ -68,7 +68,7 @@
     }
 
     .tags {
-        background-color: #B572e8;
+        background-color: var(--palette-light-moss);
         color: white;
         border-radius: 10px;
     }

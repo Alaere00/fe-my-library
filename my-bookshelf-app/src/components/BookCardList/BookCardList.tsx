@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ListItem } from "@fluentui/react-components"
 import type { BookInfo, BookSearchResult } from "../types/BookResponseTypes"
 import "./BookCard.css"
 import { BookCardComponent } from "../CardComponent/BookCardComponent"
+import { handleSetRating } from "@/services/BookService";
 
 interface BookListProps {
     results: BookSearchResult
@@ -39,22 +40,25 @@ const BookResultListComponent = ({ results }: BookListProps ) => {
     }
 
 
-//     useEffect(() => {
+    // useEffect(() => {
 
-//         (async() => {
-//         const token = sessionStorage.getItem("accessToken");
-//         const res = await fetch(`http://localhost:8000/my-bookshelf`, {
-//         method: "GET", headers: {
-//             "Content-Type": "application/json",
-//             "Authorization": `Bearer ${token}`,
-//         },
-//     })
-//     setTemp(await res.json())
+    //     (async() => {
+    //     const token = sessionStorage.getItem("accessToken");
+    //     const res = await fetch(`http://localhost:8000/my-bookshelf`, {
+    //     method: "GET", headers: {
+    //         "Content-Type": "application/json",
+    //         "Authorization": `Bearer ${token}`,
+    //     },
+    // })
+    // const shelf = await res.json()
+    // const s: Record<number, string> = {}
+    // r 
+
+  
+    // })()
 
 
-// })()
-
-//     }, [])
+    // }, [])
 
 //     console.log(temp)
 
@@ -63,6 +67,31 @@ const BookResultListComponent = ({ results }: BookListProps ) => {
     //         "Content-Type": "application/json",
     //         "Authorization": `Bearer ${token}`,
     //     }, body: JSON.stringify({ rating })
+
+    const [ratings, setRatings] = useState<Record<number, number>>({})
+
+    async function handleRating(book: BookInfo, rating: number| null) {
+        const previous = ratings[book.id]
+        setRatings(r => {
+            const next = {...r};
+            if (rating) next[book.id] = rating
+            else delete next[book.id];
+            return next
+        });
+        try {
+            await handleSetRating(book.id, rating)
+        } catch (err){
+            setRatings(r => {
+                const next = {...r};
+                if (previous) next[book.id] = previous
+                else delete next[book.id]
+                return next
+            }
+
+            );
+        }
+
+    }
 
            
     return (
@@ -81,6 +110,8 @@ const BookResultListComponent = ({ results }: BookListProps ) => {
             readingStatus={statuses[info.id]}
             onStatusChange={(status)=> {
                 handleSetBookStatus(info, status)} }
+            handleRating={val => handleRating(info, val)}
+            rating={ratings[info.id]}
         />
         ))}
         </ListItem>

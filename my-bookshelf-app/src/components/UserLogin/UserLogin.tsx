@@ -17,8 +17,11 @@ export default function UserLogin(): JSXElement {
   const location = useLocation();
   const from = (location.state as { from?: string } | null)?.from ?? "/";
 
-  async function handleUserLogin(email: string, password: string){
-    
+  async function handleUserLogin(){
+    // e.preventDefault();
+    // setError(undefined);
+    // setLoading(true);
+
     const url = `http://localhost:8000/my-bookshelf/login`
     try {
       const response = await fetch(url, {
@@ -79,7 +82,7 @@ export default function UserLogin(): JSXElement {
           { error && <p role="alert" className='mt-3 text-sm text-error-primary'>{error}</p>}
       </div>
 
-      <Button className="login-btn" onClick={() => handleUserLogin(email, password)}>Submit</Button>
+      <Button className="login-btn" onClick={() => handleUserLogin()}>Submit</Button>
     </form>
 
         <div className="flex center gap-1 text-center ">
