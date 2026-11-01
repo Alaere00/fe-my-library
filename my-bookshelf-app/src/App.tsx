@@ -10,7 +10,6 @@ function App() {
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<SearchPage/>} />
       </Route>
-
     </Routes>
   )
 }
