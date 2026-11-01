@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { Tabs } from '@/untitled-components/application/tabs/tabs' 
 import SearchBarComponent from '../SearchBar/SearchBar'
 
@@ -15,8 +14,6 @@ const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
 }))
 
 export const SearchComponent = ({ onSearch, selectedTab, handleSelectionChange }) => {
-
-    // note to self, first render is all-catalogs?? Probably a bug
     return (
         <div>
             <Tabs onSelectionChange={handleSelectionChange}>

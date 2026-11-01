@@ -3,6 +3,7 @@ import { ArrowRight16Regular, StarFilled } from '@fluentui/react-icons';
 import { BookCardActions } from '../BookCardActions/BookCardActions';
 import { TagGroup, TagList, Tag } from '@/untitled-components/base/tags/tags';
 import './BookCardComponent.css'
+import { updateSetFavorite } from '@/services/BookService';
 
 interface BookCardProps {
     image?: string;
@@ -22,25 +23,22 @@ interface BookCardProps {
 }
 
 export function BookCardComponent(info : BookCardProps) {
-
-    // const [isFavorite, setIsFavorite] = useState<Set<number>>(new Set());
-
-    // const handleFavoriteClick = (id: number) => {
-    //     setIsFavorite(prev => {
-    //         const next = new Set(prev);
-    //         if (next.has(id)) next.delete(id);
-    //         else next.add(id);
-    //         return next;
-    //     });
-    //     console.log(`Favorite clicked for book at index: ${id}`);
-    //     console.log(isFavorite)
-    // }
-
+    const [isFavorite, setFavorite] = useState<boolean>(false)
     const MAX_TAGS = 5;
     const genres = info?.genres ?? []
     const hiddenCount = genres.length - MAX_TAGS
 
-
+    async function handleFavorites(favorite: boolean) {
+        if (info.id == null) return;
+        const next = !isFavorite
+        setFavorite(next)
+        try {
+            await updateSetFavorite(info.id, favorite)
+        } catch (err){
+            setFavorite(!next);
+            console.error(err)
+        }
+    }
 
 
     return (
@@ -81,7 +79,7 @@ export function BookCardComponent(info : BookCardProps) {
         </div>
         {/* view more button -> navigates to book details page (make the entire card clickable) */}  
         {/* <Button className='book-detaiils' iconPosition='after' icon={<ArrowRight16Regular/>} style={{ border: 'none'}} >View Book Details</Button> */}
-        <BookCardActions rating={info.rating} handleRating={info.handleRating} readingStatus={info.readingStatus} setReadingStatus={info.onStatusChange} />
+        <BookCardActions rating={info.rating} handleRating={info.handleRating} readingStatus={info.readingStatus} setReadingStatus={info.onStatusChange} handleFavorite={() => handleFavorites(isFavorite)} />
         </div>
     )
 

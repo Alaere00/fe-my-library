@@ -53,3 +53,46 @@ export async function handleSetRating(providerID: number, rating: number){
         console.error(error)
     }
 }
+
+export async function updateSetFavorite(providerID: number, isFavorite: boolean){
+    try {
+        const token = sessionStorage.getItem("accessToken");
+        const res = await fetch(`http://localhost:8000/my-bookshelf/${providerID}/set-favorite`, {
+            method: "PATCH", headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            }, body: JSON.stringify({ "is_favorite": isFavorite })
+    
+        })
+        if (!res.ok) throw new Error(await res.text());
+
+    } catch(error) {
+        console.error(error)
+    }
+
+}
+
+
+export async function getBookShelf() {
+    try {
+        const token = sessionStorage.getItem("accessToken");
+        const res = await fetch(`http://localhost:8000/my-bookshelf`, {
+        method: "GET", headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+    })
+    const shelf = await res.json()
+    return shelf;
+    } catch (error) {
+        console.error(error)
+    }
+
+}
+
+    
+
+  
+
+
+

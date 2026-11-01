@@ -15,8 +15,9 @@ interface BookListProps {
 
 const BookResultListComponent = ({ results }: BookListProps ) => {
     const [statuses, setStatus] = useState<Record<number, string>>({})
-    const handleSetBookStatus = async(book: BookInfo, status: string) => {
+    const [ratings, setRatings] = useState<Record<number, number>>({})
 
+    const handleSetBookStatus = async(book: BookInfo, status: string) => {
         const previous = statuses[book.id];
         setStatus(s => ({ ...s, [book.id]: status}))
 
@@ -40,36 +41,6 @@ const BookResultListComponent = ({ results }: BookListProps ) => {
     }
 
 
-    // useEffect(() => {
-
-    //     (async() => {
-    //     const token = sessionStorage.getItem("accessToken");
-    //     const res = await fetch(`http://localhost:8000/my-bookshelf`, {
-    //     method: "GET", headers: {
-    //         "Content-Type": "application/json",
-    //         "Authorization": `Bearer ${token}`,
-    //     },
-    // })
-    // const shelf = await res.json()
-    // const s: Record<number, string> = {}
-    // r 
-
-  
-    // })()
-
-
-    // }, [])
-
-//     console.log(temp)
-
-    // const res = await fetch(`http://localhost:8000/my-bookshelf/rating`, {
-    //     method: "PATCH", headers: {
-    //         "Content-Type": "application/json",
-    //         "Authorization": `Bearer ${token}`,
-    //     }, body: JSON.stringify({ rating })
-
-    const [ratings, setRatings] = useState<Record<number, number>>({})
-
     async function handleRating(book: BookInfo, rating: number| null) {
         const previous = ratings[book.id]
         setRatings(r => {
@@ -90,10 +61,8 @@ const BookResultListComponent = ({ results }: BookListProps ) => {
 
             );
         }
-
     }
-
-           
+  
     return (
         <>
     <ListItem>

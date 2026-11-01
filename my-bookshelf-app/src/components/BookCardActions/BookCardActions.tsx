@@ -32,13 +32,14 @@ const status = Object.entries(Status as Record<string, string>).map(([name, valu
 
 
 interface BookCardActionsProps {
-    readingStatus?: string;                       // snake_case key, e.g. "completed"
-    setReadingStatus?: (status: string) => void;
-    rating?: number;
-    handleRating?: (rating: number | null) => void;
+    readingStatus: string;                       // snake_case key, e.g. "completed"
+    setReadingStatus: (status: string) => void;
+    rating: number;
+    handleRating: (rating: number | null) => void;
+    handleFavorite: (favorite: boolean) => void;
 }
 
-export const BookCardActions = ({rating, handleRating, readingStatus, setReadingStatus} : BookCardActionsProps): JSXElement => {
+export const BookCardActions = ({rating, handleRating, readingStatus, setReadingStatus, handleFavorite } : BookCardActionsProps): JSXElement => {
 
     return (
         <div className='actions-container'>
@@ -61,7 +62,7 @@ export const BookCardActions = ({rating, handleRating, readingStatus, setReading
 
             </MenuPopover>
             </Menu>
-        <Button icon={<HeartRegular />}></Button>
+        <Button onClick={(val) => handleFavorite(val)} icon={<HeartRegular />}></Button>
         <DetailedActions rating={rating} onRate={handleRating} disabled={readingStatus != Status.completed}/>
         </div>
     )
@@ -76,10 +77,8 @@ interface DetailedActionsProps {
 }
 
 const DetailedActions = ({rating, onRate, disabled}: DetailedActionsProps) => {
-
     return (
         <Menu positioning={{ autoSize: true }}>
-
         <MenuTrigger disableButtonEnhancement>
             <Button icon={<MoreVerticalRegular />}></Button>
         </MenuTrigger>

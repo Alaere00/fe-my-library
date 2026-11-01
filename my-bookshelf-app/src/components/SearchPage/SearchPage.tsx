@@ -4,9 +4,9 @@ import {  BookSearchResult} from "../types/BookResponseTypes"
 import { LoadingIndicator } from "@/untitled-components/application/loading-indicator/loading-indicator"
 import * as Paginations from '@/untitled-components/application/pagination/pagination';
 import { SearchComponent, SelectedTab } from '../SearchComponent/SearchComponent';
-import "./SearchPage.css"
 import { Header } from '../Header/Header';
 import { searchCatalog } from '@/services/BookService';
+import "./SearchPage.css"
 
 
 export default function SearchPage(){
@@ -71,7 +71,6 @@ export default function SearchPage(){
         <footer>
         {results.total_pages > 0 && <Paginations.PaginationButtonGroup align="center" total={results?.total_pages} page={currentPage} onPageChange={handlePageChange} />}
         </footer>
-
         </div>
     )
 }
