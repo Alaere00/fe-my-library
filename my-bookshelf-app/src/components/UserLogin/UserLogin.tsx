@@ -3,59 +3,46 @@ import type { JSXElement } from "@fluentui/react-components";
 import { Button } from "@/untitled-components/base/buttons/button"
 import { Input } from "@/untitled-components/base/input/input"
 import { Label } from '@/untitled-components/base/input/label';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "./UserLogin.css"
+import { useAuth } from '@/contexts/AuthContext';
+import { LoginResponse } from '../types/Auth';
 
-interface LoginCredentials {
-  email: string;
-  password: string
-}
-
-interface LoginResponse {
-  session: {
-    access_token: string;
-  },
-  
-  user: {
-    id: number;
-    name: string;
-    email: string;
-  }
-}
 export default function UserLogin(): JSXElement {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [error, setError] = useState<string>()
-  const navigate = useNavigate()
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>();
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = (location.state as { from?: string } | null)?.from ?? "/";
 
-  async function login(credentials: LoginCredentials){
+  async function handleUserLogin(email: string, password: string){
+    
     const url = `http://localhost:8000/my-bookshelf/login`
-
     try {
       const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({email, password})
+        body: JSON.stringify({ email, password})
       })
 
       if (!response.ok){
         throw new Error(`Login failed: ${response.statusText}`)
       }
 
-
       const data: LoginResponse = await response.json()
-      sessionStorage.setItem('accessToken', data.session.access_token)
-      navigate('/', { replace: true })
+      login(data.session.access_token)
+      navigate(from, { replace: true })
       
       } catch(error) {
         console.log('Error during login', error)
         return null;
-      }
+    }
 
-  }
-
+}
 
   return (
 
@@ -92,7 +79,7 @@ export default function UserLogin(): JSXElement {
           { error && <p role="alert" className='mt-3 text-sm text-error-primary'>{error}</p>}
       </div>
 
-      <Button className="login-btn" onClick={() => login({email, password})}>Submit</Button>
+      <Button className="login-btn" onClick={() => handleUserLogin(email, password)}>Submit</Button>
     </form>
 
         <div className="flex center gap-1 text-center ">

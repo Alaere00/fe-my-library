@@ -1,7 +1,29 @@
-.header-container {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+.headers {
+    background: white;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 45px;
+        padding: 10px 0px;
+
+        .logout-btn {
+            box-shadow: none;
+            background-color: var(--palette-light-moss);
+        
+        }
+
+    }
+
+    .app-name {
+        color: var(--palette-forest);
+    }
+
+    .tabs {
+        color: var(--palette-olive);
+    }
+
 }
+

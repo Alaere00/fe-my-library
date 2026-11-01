@@ -35,3 +35,21 @@ export function searchCatalog(catalog, query: string, page: number, perPage: num
     return CatalogService[catalog].search(query, page, perPage)
 
 }
+
+
+export async function handleSetRating(rating: number, provider_id: string){
+    try {
+        const token = sessionStorage.getItem("accessToken");
+        const res = await fetch(`http://localhost:8000/my-bookshelf/${provider_id}/rating`, {
+            method: "PATCH", headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            }, body: JSON.stringify({ rating })
+    
+        })
+        if (!res.ok) throw new Error(await res.text());
+
+    } catch(error) {
+        console.error(error)
+    }
+}

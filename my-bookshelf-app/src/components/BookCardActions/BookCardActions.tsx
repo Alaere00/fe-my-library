@@ -12,12 +12,34 @@ import {
     Rating,
     ProgressBar,
     MenuDivider,
+    MenuList,
   } from "@fluentui/react-components";
 import { HeartRegular, MoreVerticalRegular, Add12Filled } from '@fluentui/react-icons';
 
 
-export const BookCardActions = (): JSXElement => {
-    const [readingStatus, setReadingStatus] = useState<string>('Want to read')
+export enum Status {
+    want_to_read = "Want to read",
+    completed = "Completed",
+    did_not_complete = "Did not complete",
+    reading = "Reading",
+
+}
+
+const status = Object.entries(Status as Record<string, string>).map(([name, value]) => ({
+    id: name, 
+    label: value
+}))
+
+
+interface BookCardActionsProps {
+    readingStatus?: string;                       // snake_case key, e.g. "completed"
+    setReadingStatus?: (status: string) => void;
+    rating?: number;
+    handleRating?: (rating: number | null) => void;
+}
+
+export const BookCardActions = ({rating, handleRating, readingStatus, setReadingStatus} : BookCardActionsProps): JSXElement => {
+
     return (
         <div className='actions-container'>
             <Menu positioning={{ autoSize: true }}>
@@ -26,25 +48,36 @@ export const BookCardActions = (): JSXElement => {
                 <Button>{readingStatus}</Button>
             </MenuTrigger>
             <MenuPopover>
-            <MenuItem >Want to read</MenuItem>
-            <MenuItem >Reading</MenuItem>
-            <MenuItem onClick={() => setReadingStatus('Completed')}>Completed</MenuItem>
-            <MenuItem >Did not complete</MenuItem>
+
+                <MenuList>
+
+            {status.map(({id, label}) => (
+            <MenuItem key={id} onClick={() => {
+                setReadingStatus(id)
+            }}>{label}</MenuItem>
+            ))
+            }
+                </MenuList>
+
             </MenuPopover>
             </Menu>
-
-
-
         <Button icon={<HeartRegular />}></Button>
-        <DetailedActions/>
+        <DetailedActions rating={rating} onRate={handleRating} disabled={readingStatus != Status.completed}/>
         </div>
     )
 }
 
-const DetailedActions = () => {
-    const [rating, setRating] = useState<number>(0)
-    return (
 
+interface DetailedActionsProps {
+    bookId?: number;                
+    rating?: number;
+    onRate?: (rating: number) => void;
+    disabled?: boolean;                   
+}
+
+const DetailedActions = ({rating, onRate, disabled}: DetailedActionsProps) => {
+
+    return (
         <Menu positioning={{ autoSize: true }}>
 
         <MenuTrigger disableButtonEnhancement>
@@ -54,7 +87,7 @@ const DetailedActions = () => {
             <MenuGroup>
                 <MenuGroupHeader>Your Rating</MenuGroupHeader>
                 <div className='menu-section-body'>
-                <Rating size='large' color='marigold' value={rating} onChange={(_, data) => setRating(data.value)} />
+                <Rating size='large' color='marigold' value={rating} onChange={(_, data) => onRate?.(data.value === 0 ? null : data.value)} />
                 </div>
 
             </MenuGroup>
@@ -73,9 +106,6 @@ const DetailedActions = () => {
                 <MenuGroupHeader>Add to list</MenuGroupHeader>
                 <MenuItem icon={<Add12Filled />}>New list</MenuItem>
             </MenuGroup>
-
-
-
         </MenuPopover>
         </Menu>
 

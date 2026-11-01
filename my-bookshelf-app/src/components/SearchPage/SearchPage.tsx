@@ -9,8 +9,6 @@ import { Header } from '../Header/Header';
 import { searchCatalog } from '@/services/BookService';
 
 
-
-const PAGE_LIMIT: number = 10;
 export default function SearchPage(){
     const [results, setResults] = useState<BookSearchResult>({} as BookSearchResult)
     const [loading, setLoading] = useState<boolean>(false)
@@ -52,7 +50,7 @@ export default function SearchPage(){
 
 
     return (
-        <div className='container'>
+        <div className='search-header'>
           <Header />
           <div style={{ marginTop: 35}}>
           <h1 style={{ fontWeight: "bold", fontSize: 45, marginBottom: 20}}>Discover your next read!</h1>
