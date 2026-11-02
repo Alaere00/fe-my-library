@@ -7,7 +7,7 @@
         justify-content: space-between;
         align-items: center;
         gap: 45px;
-        padding: 10px 0px;
+        padding: 8px 0px;
 
         .logout-btn {
             box-shadow: none;

@@ -78,8 +78,6 @@ export function BookCardComponent(info : BookCardProps) {
             <StarFilled style={{ height: '10px', width: '10px'}} />
             <p>{`${info?.numberOfPages} pages`}</p>
         </div>
-        {/* view more button -> navigates to book details page (make the entire card clickable) */}  
-        {/* <Button className='book-detaiils' iconPosition='after' icon={<ArrowRight16Regular/>} style={{ border: 'none'}} >View Book Details</Button> */}
         <BookCardActions rating={info.rating} handleRating={info.handleRating} readingStatus={info.readingStatus} setReadingStatus={info.onStatusChange} handleFavorite={() => handleFavorites(isFavorite)} />
         </div>
     )

@@ -5,6 +5,7 @@ import { Button } from "@/untitled-components/base/buttons/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { Avatar } from "@/untitled-components/base/avatar/avatar";
 import "./Header.css"
+import { Key } from "react-aria-components";
 
 
 export enum SelectedTab {
@@ -12,6 +13,11 @@ export enum SelectedTab {
     SHELF = "My shelf",
     RECOMMENDATIONS = "Recommendations",
 
+}
+
+const tabRoutes = {
+    shelf: "/bookshelf",
+    discover: "/", 
 }
 
 const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
@@ -22,6 +28,7 @@ const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
 export const Header = () => {
     const { logout } = useAuth()
     const navigate = useNavigate()
+    const [selectedTab, setSelectedTab] = useState<Key>("discover")
 
     async function signUserOut(){
         try {
@@ -40,15 +47,19 @@ export const Header = () => {
 
             } catch (error) {
                 console.error(error)
-            }
-    
+        }
+    }
+
+    function handleSelectTab(key: Key){
+        setSelectedTab(key)
+        navigate(tabRoutes[key])
     }
 
     return (
         <div className="headers" >
             <div className="ms-20 header-content">
             <h1  className="app-name" style={{ fontWeight: "bold", fontSize: 20 }}>MyLibrary</h1>
-            <Tabs onSelectionChange={() => {}}>
+            <Tabs selectedKey={selectedTab} onSelectionChange={handleSelectTab}>
             <Tabs.List items={tabs}>
                 {(tab) => <Tabs.Item  {...tab} />}
             </Tabs.List>

@@ -51,7 +51,7 @@ export default function SearchPage(){
 
     return (
         <div className='search-header'>
-          <Header />
+            {/* <Header /> */}
           <div className='ms-20' style={{ marginTop: 55}}>
           <h1 className='mb-5' style={{ fontWeight: "bold", fontSize: 45 }}>Discover your next read!</h1>
           <p>Search millions of books, shelve, rate, and get personalized recommendations. </p>
