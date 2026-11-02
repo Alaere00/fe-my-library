@@ -30,7 +30,12 @@ export const Header = () => {
     const { logout } = useAuth()
     const navigate = useNavigate()
     const location = useLocation()
-    const selectedTab = location.pathname.startsWith(tabRoutes.shelf) ? "shelf" : "discover"
+    const selectedTab =
+    location.pathname.startsWith("/bookshelf")
+        ? "shelf"
+        : location.pathname === "/recommendations"
+          ? "recommendations"
+          : "discover";
 
     async function signUserOut(){
         try {

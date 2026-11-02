@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import SearchPage from './components/SearchPage/SearchPage';
 import UserLogin from './components/UserLogin/UserLogin';
+import CreateAccount from './components/CreateAccount/CreateAccount';
 import { ProtectedRoute } from "./ProtectedRoute";
 import { Bookshelf } from './components/Bookshelf/Bookshelf';
 import { BookshelfStatusPage } from './components/BookshelfStatusPage/BookshelfStatusPage';
@@ -10,6 +11,7 @@ function App() {
   return (
     <Routes>
       <Route path="/sign-in" element={<UserLogin />} />
+      <Route path="/create-account" element={<CreateAccount />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<SearchPage/>} />
         <Route path="/bookshelf" element={<Bookshelf/>} />

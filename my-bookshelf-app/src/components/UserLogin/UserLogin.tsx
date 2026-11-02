@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type FormEvent } from 'react'
 import type { JSXElement } from "@fluentui/react-components";
 import { Button } from "@/untitled-components/base/buttons/button"
 import { Input } from "@/untitled-components/base/input/input"
@@ -6,25 +6,26 @@ import { Label } from '@/untitled-components/base/input/label';
 import { useLocation, useNavigate } from 'react-router-dom';
 import "./UserLogin.css"
 import { useAuth } from '@/contexts/AuthContext';
-import { LoginResponse } from '../types/Auth';
+import type { LoginResponse } from '../types/Auth';
 
 export default function UserLogin(): JSXElement {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = (location.state as { from?: string } | null)?.from ?? "/";
+  const locationState = location.state as { from?: string; message?: string } | null;
+  const from = locationState?.from ?? "/";
 
-  async function handleUserLogin(){
-    // e.preventDefault();
-    // setError(undefined);
-    // setLoading(true);
+  async function handleUserLogin(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setError(undefined);
+    setIsSubmitting(true);
 
-    const url = `http://localhost:8000/my-bookshelf/login`
     try {
-      const response = await fetch(url, {
+      const response = await fetch('http://localhost:8000/my-bookshelf/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -33,19 +34,19 @@ export default function UserLogin(): JSXElement {
       })
 
       if (!response.ok){
-        throw new Error(`Login failed: ${response.statusText}`)
+        throw new Error(response.statusText || `Login failed (${response.status}).`)
       }
 
       const data: LoginResponse = await response.json()
       login(data.session.access_token)
       navigate(from, { replace: true })
       
-      } catch(error) {
-        console.log('Error during login', error)
-        return null;
+    } catch (loginError) {
+      setError(loginError instanceof Error ? loginError.message : 'Unable to log in. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-}
+  }
 
   return (
 
@@ -60,8 +61,9 @@ export default function UserLogin(): JSXElement {
             </div>
         </div>
 
+          {locationState?.message && <p role="status" className="text-sm text-success-primary">{locationState.message}</p>}
 
-<form noValidate autoComplete="off">
+<form noValidate autoComplete="off" onSubmit={handleUserLogin}>
       <div className="form-row">
       <Label className="form-label" >Email: </Label>
         <Input 
@@ -82,13 +84,16 @@ export default function UserLogin(): JSXElement {
           { error && <p role="alert" className='mt-3 text-sm text-error-primary'>{error}</p>}
       </div>
 
-      <Button className="login-btn" onClick={() => handleUserLogin()}>Submit</Button>
+      <Button className="login-btn" type="submit" isDisabled={isSubmitting}>
+        {isSubmitting ? 'Logging in...' : 'Log in'}
+      </Button>
+      {isSubmitting && <p role="status" aria-live="polite" className="mt-2 text-sm text-tertiary">Signing in, please wait...</p>}
     </form>
 
         <div className="flex center gap-1 text-center ">
             <span className="text-sm text-tertiary">New here?</span>
-            <Button href="#" color="link-color" size="md" onClick={() => navigate("/create-account")}>
-                Create and Account
+            <Button href="/create-account" color="link-color" size="md">
+              Create an account
             </Button>
         </div>
     </div>
