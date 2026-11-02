@@ -6,6 +6,19 @@ export interface BookSearchResult {
     total_pages: number
 }
 
+export interface Bookshelf {
+    book_id: string;
+    books: BookInfo
+    completed_at: string;
+    is_favorite: boolean;
+    progress_pages: number;
+    rating: number;
+    started_at: string;
+    status: string;
+    updated_at: string;
+    user_id: string
+}
+
 export interface BookInfo {
     id: number               // was string
     title?: string | null

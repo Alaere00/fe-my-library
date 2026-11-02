@@ -4,6 +4,7 @@ import { BookCardActions } from '../BookCardActions/BookCardActions';
 import { TagGroup, TagList, Tag } from '@/untitled-components/base/tags/tags';
 import './BookCardComponent.css'
 import { updateSetFavorite } from '@/services/BookService';
+import { BookCover } from '../BookCover/BookCover';
 
 interface BookCardProps {
     image?: string;
@@ -44,11 +45,11 @@ export function BookCardComponent(info : BookCardProps) {
     return (
         <div className='book-card'>
             <div>
-                <img
+                {info?.image ? <img
                 className="image-styles"
                 src={info?.image}
                 alt="Book Cover"
-                />
+                /> : <BookCover src={info?.image} title={info?.title}/> }
             </div>
 
         <div className='book-title' >

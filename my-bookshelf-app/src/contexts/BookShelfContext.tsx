@@ -1,16 +1,18 @@
 import { useEffect } from "react";
-import { BookInfo } from "@/components/types/BookResponseTypes";
+import { BookInfo, Bookshelf } from "@/components/types/BookResponseTypes";
 import { createContext, useContext, useState, ReactNode } from "react";
 
 interface BookShelfContextType {
-    results: BookInfo[]
+    bookshelf: Bookshelf[];
+    bookInfo: BookInfo[];
 
 }
 
 const BookshelfContext = createContext<BookShelfContextType | null>(null)
 
 export const BookshelfProvider = ({ children }: { children: ReactNode}) => {
-    const [results, setResults] = useState<BookInfo[]>()
+    const [bookshelf, setBookshelf] = useState<Bookshelf[]>()
+    const [bookInfo, setBookInfo] = useState<BookInfo[]>()
 
 
     useEffect(() => {
@@ -23,8 +25,10 @@ export const BookshelfProvider = ({ children }: { children: ReactNode}) => {
                     "Authorization": `Bearer ${token}`,
                 },
             })
-            const shelf = await res.json()
-            setResults(shelf)
+            const shelf: Bookshelf[] = await res.json()
+            setBookshelf(shelf)
+            const books = shelf.map((book)=> book.books)
+            setBookInfo(books)
             } catch (error) {
             console.error(error)
             } 
@@ -33,7 +37,7 @@ export const BookshelfProvider = ({ children }: { children: ReactNode}) => {
 
 
     return (
-        <BookshelfContext.Provider value={{ results }} >
+        <BookshelfContext.Provider value={{ bookshelf, bookInfo }} >
             { children }
         </BookshelfContext.Provider>
     )
@@ -41,7 +45,6 @@ export const BookshelfProvider = ({ children }: { children: ReactNode}) => {
 
 export const useBookshelf = () => {
     const ctx = useContext(BookshelfContext)
-    // if (!ctx) throw new Error("useAuth must be within AuthProvider");
     return ctx
 
 }
