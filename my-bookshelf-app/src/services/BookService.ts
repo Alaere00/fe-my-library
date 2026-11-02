@@ -7,9 +7,6 @@ async function fetchJSON<T>(url: string){
     return response.json()
 }
 
-interface CatalogConfig<T> {
-    search: (query: string) => Promise<T[]>;
-}
 
 const CatalogService = {
     all: {
@@ -73,22 +70,6 @@ export async function updateSetFavorite(providerID: number, isFavorite: boolean)
 }
 
 
-export async function getBookShelf() {
-    try {
-        const token = sessionStorage.getItem("accessToken");
-        const res = await fetch(`http://localhost:8000/my-bookshelf`, {
-        method: "GET", headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-        },
-    })
-    const shelf = await res.json()
-    return shelf;
-    } catch (error) {
-        console.error(error)
-    }
-
-}
 
     
 

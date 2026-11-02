@@ -52,13 +52,11 @@ export default function SearchPage(){
     return (
         <div className='search-header'>
           <Header />
-          <div style={{ marginTop: 35}}>
-          <h1 style={{ fontWeight: "bold", fontSize: 45, marginBottom: 20}}>Discover your next read!</h1>
+          <div className='ms-20' style={{ marginTop: 55}}>
+          <h1 className='mb-5' style={{ fontWeight: "bold", fontSize: 45 }}>Discover your next read!</h1>
           <p>Search millions of books, shelve, rate, and get personalized recommendations. </p>
+          <SearchComponent handleSelectionChange={handleSelectionChange} selectedTab={selectedTab} onSearch={handleSearchSubmit} />
           </div>
-        <div className='search-container'>
-        <SearchComponent handleSelectionChange={handleSelectionChange} selectedTab={selectedTab} onSearch={handleSearchSubmit} />
-        </div>
         {results?.found > 0 && <div style={{ margin: "10px 10px"}}>
           <p>Total Results: {results.found }</p>
           </div>}

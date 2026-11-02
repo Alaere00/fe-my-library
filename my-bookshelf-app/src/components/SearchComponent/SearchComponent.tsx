@@ -15,14 +15,16 @@ const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
 
 export const SearchComponent = ({ onSearch, selectedTab, handleSelectionChange }) => {
     return (
-        <div>
+        <>
+        <div className='mb-3 mt-3'>
             <Tabs onSelectionChange={handleSelectionChange}>
             <Tabs.List items={tabs}>
                 {(tab) => <Tabs.Item {...tab} />}
             </Tabs.List>
             </Tabs>
-            <SearchBarComponent onSearch={onSearch} catalog={selectedTab}/>
         </div>
+            <SearchBarComponent onSearch={onSearch} catalog={selectedTab}/>
+        </>
 
     )
 }

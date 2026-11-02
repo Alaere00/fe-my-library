@@ -3,13 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Tabs } from '@/untitled-components/application/tabs/tabs';
 import { Button } from "@/untitled-components/base/buttons/button";
 import { useAuth } from "@/contexts/AuthContext";
+import { Avatar } from "@/untitled-components/base/avatar/avatar";
 import "./Header.css"
 
 
 export enum SelectedTab {
     DISCOVER = "Discover",
     SHELF = "My shelf",
-    TITLE = "Lists",
+    RECOMMENDATIONS = "Recommendations",
 
 }
 
@@ -20,24 +21,43 @@ const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
 
 export const Header = () => {
     const { logout } = useAuth()
-    const [tabSelection, setTabSelection] = useState()
     const navigate = useNavigate()
 
-    function handleSelection () {
+    async function signUserOut(){
+        try {
+            const token = sessionStorage.getItem("accessToken");
+            const res = await fetch(`http://localhost:8000/my-bookshelf/logout`, {
+            method: "POST", headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+            }})
+            if (res.status == 200){
+                logout()
+
+                navigate("/sign-in", {replace: true})
+                window.history.replaceState(null, "", "/sign-in")
+            }
+
+            } catch (error) {
+                console.error(error)
+            }
+    
     }
 
     return (
         <div className="headers" >
-            <div className="header-content">
+            <div className="ms-20 header-content">
             <h1  className="app-name" style={{ fontWeight: "bold", fontSize: 20 }}>MyLibrary</h1>
-
             <Tabs onSelectionChange={() => {}}>
             <Tabs.List items={tabs}>
                 {(tab) => <Tabs.Item  {...tab} />}
             </Tabs.List>
             </Tabs>
             {/* <Button className="login-btn" onClick={() => navigate('/sign-in')}>Login</Button> */}
-            <Button className="logout-btn" onClick={logout}>Logout</Button> 
+            <div className="flex gap-4 me-4">
+            <Button className="logout-btn" onClick={signUserOut}>Logout</Button> 
+            <Avatar size="md" alt="Olivia Rhye" initials="AN" />
+            </div>
             </div>
         </div>
     )

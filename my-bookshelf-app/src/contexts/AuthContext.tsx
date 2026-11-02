@@ -1,6 +1,4 @@
-import { LoginCredentials, LoginResponse } from "@/components/types/Auth";
 import { createContext, useContext, useState, ReactNode } from "react";
-import { useNavigate } from "react-router-dom";
 
 interface AuthContextType {
     isAuthenticated: boolean;
@@ -18,10 +16,8 @@ export const AuthProvider = ({ children }: { children: ReactNode}) => {
         sessionStorage.setItem("accessToken", accessToken);
         setIsAuthenticated(true)
 }
-
-
     function logout() {
-        sessionStorage.removeItem("accessToken")
+        sessionStorage.clear();
         setIsAuthenticated(true)
     }
 
