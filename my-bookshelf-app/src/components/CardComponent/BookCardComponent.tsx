@@ -25,8 +25,9 @@ interface BookCardProps {
 
 export function BookCardComponent(info : BookCardProps) {
     const [isFavorite, setFavorite] = useState<boolean>(false)
-    const MAX_TAGS = 5;
+    const MAX_TAGS = 3;
     const genres = info?.genres ?? []
+    const visibleGenres = genres.slice(0, MAX_TAGS);
     const hiddenCount = genres.length - MAX_TAGS
 
     async function handleFavorites(favorite: boolean) {
@@ -63,7 +64,7 @@ export function BookCardComponent(info : BookCardProps) {
         <div className='book-genres'>
             <TagGroup label="Tags" size="md">
             <TagList className="tag-list">
-                {genres.slice(0, MAX_TAGS).map((genre, index) => (
+                {visibleGenres.map((genre, index) => (
                 <Tag className="tags" key={index}>{genre}</Tag>
                 ))}
                 {hiddenCount > 0 && (
@@ -74,9 +75,10 @@ export function BookCardComponent(info : BookCardProps) {
         </div>
 
         <div className='misc-details'>
-            <p>{info?.publishedYear ? `Published: ${info.publishedYear}`: `'Unknown Year'`}</p>
-            <StarFilled style={{ height: '10px', width: '10px'}} />
-            <p>{`${info?.numberOfPages} pages`}</p>
+            <p>{info?.publishedYear ? `Published: ${info.publishedYear}`: ``}</p>
+        {info?.numberOfPages && (
+            <p><StarFilled style={{ height: '10px', width: '10px'}} />{`${info?.numberOfPages} pages`}</p>
+        )}
         </div>
         <BookCardActions rating={info.rating} handleRating={info.handleRating} readingStatus={info.readingStatus} setReadingStatus={info.onStatusChange} handleFavorite={() => handleFavorites(isFavorite)} />
         </div>

@@ -17,6 +17,7 @@ export enum SelectedTab {
 const tabRoutes = {
     shelf: "/bookshelf",
     discover: "/",
+    recommendations: "/recommendations",
 }
 
 const tabs = [

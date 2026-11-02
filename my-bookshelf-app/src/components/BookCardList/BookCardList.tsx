@@ -62,7 +62,7 @@ const BookResultListComponent = ({ results }: BookListProps ) => {
             );
         }
     }
-  
+ 
     return (
         <>
     <ListItem>
@@ -71,7 +71,7 @@ const BookResultListComponent = ({ results }: BookListProps ) => {
             key={index}
             image={info?.image?.url}
             genres={info?.genres}
-            authors={info?.authors}
+            authors={info?.author_names}
             title={info?.title}
             publishedYear={info?.release_year}
             numberOfPages={info?.pages}

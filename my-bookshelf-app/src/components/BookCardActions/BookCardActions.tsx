@@ -40,13 +40,15 @@ interface BookCardActionsProps {
 }
 
 export const BookCardActions = ({rating, handleRating, readingStatus, setReadingStatus, handleFavorite } : BookCardActionsProps): JSXElement => {
+    const selectedStatus = status.find((s) => s.id === readingStatus)?.label || "Select Status";
 
+    console.log(status, readingStatus)
     return (
         <div className='actions-container'>
             <Menu positioning={{ autoSize: true }}>
 
             <MenuTrigger disableButtonEnhancement>
-                <Button>{readingStatus}</Button>
+                <Button>{selectedStatus}</Button>
             </MenuTrigger>
             <MenuPopover>
 

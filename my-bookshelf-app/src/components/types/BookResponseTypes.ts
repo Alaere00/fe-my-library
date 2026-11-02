@@ -24,6 +24,7 @@ export interface BookInfo {
     title?: string | null
     subtitle?: string | null
     authors?: string[] | null
+    author_names?: string[] | null
     description?: string | null
     image?: CachedImage | null
     book_characters: BookCharacter[]

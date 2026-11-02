@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useBookshelf } from '@/contexts/BookShelfContext'
 import { Tabs } from '@/untitled-components/application/tabs/tabs'
 import { Key } from 'react-aria-components'
 import { Card } from '@fluentui/react-components'
@@ -31,7 +30,6 @@ const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
 export function Bookshelf() {
     const [selectedTab, setSelectedTab] = useState<Key>("Want to Read")
     const getBooks = useShelfBooks()
-    const navigate = useNavigate()
 
     return (
         <>
@@ -39,9 +37,11 @@ export function Bookshelf() {
         <p className="ms-30 mt-2">Welcome back, [NAME]. Here's your reading life at a glance.</p>
         <div className='flex ms-30 mt-4 mb-4 gap-3'>
             <Card>
+                <p>{getBooks('completed').length}</p>
                 <p>books read</p>
             </Card>
             <Card>
+                <p>{getBooks('reading').length}</p>
                 <p>in progress</p>
             </Card>
             <Card style={{ width: "70%" }}>
