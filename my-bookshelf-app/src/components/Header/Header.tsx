@@ -1,11 +1,10 @@
-import { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Tabs } from '@/untitled-components/application/tabs/tabs';
 import { Button } from "@/untitled-components/base/buttons/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { Avatar } from "@/untitled-components/base/avatar/avatar";
 import "./Header.css"
-import { Key } from "react-aria-components";
+import type { Key } from "react-aria-components";
 
 
 export enum SelectedTab {
@@ -17,18 +16,20 @@ export enum SelectedTab {
 
 const tabRoutes = {
     shelf: "/bookshelf",
-    discover: "/", 
+    discover: "/",
 }
 
-const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
-    id: name.toLowerCase(), 
-    label: value
-}))
+const tabs = [
+    { id: "discover", label: SelectedTab.DISCOVER },
+    { id: "shelf", label: SelectedTab.SHELF },
+    { id: "recommendations", label: SelectedTab.RECOMMENDATIONS },
+]
 
 export const Header = () => {
     const { logout } = useAuth()
     const navigate = useNavigate()
-    const [selectedTab, setSelectedTab] = useState<Key>("discover")
+    const location = useLocation()
+    const selectedTab = location.pathname.startsWith(tabRoutes.shelf) ? "shelf" : "discover"
 
     async function signUserOut(){
         try {
@@ -51,8 +52,9 @@ export const Header = () => {
     }
 
     function handleSelectTab(key: Key){
-        setSelectedTab(key)
-        navigate(tabRoutes[key])
+        if (typeof key === "string" && key in tabRoutes) {
+            navigate(tabRoutes[key as keyof typeof tabRoutes])
+        }
     }
 
     return (
