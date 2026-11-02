@@ -17,11 +17,6 @@ export enum SelectedTab {
 
 }
 
-// const tabRoutes = {
-//     shelf: "/bookshelf",
-//     discover: "/", 
-// }
-
 const tabs = Object.entries(SelectedTab).map(([name, value]) => ({
     id: name.toLowerCase(), 
     label: value
@@ -50,13 +45,13 @@ export function Bookshelf() {
         </div>
         </Card>
                 </div>
-                <div className="ms-30 mt-2">
+                {/* <div className="ms-30 mt-2">
                     <Tabs selectedKey={selectedTab} onSelectionChange={setSelectedTab}>
                     <Tabs.List items={tabs}>
                         {(tab) => <Tabs.Item  {...tab} />}
                     </Tabs.List>
                     </Tabs>
-                </div>
+                </div> */}
 
         {tabs.map((tab) => {
             const books = getBooks(tab.id)

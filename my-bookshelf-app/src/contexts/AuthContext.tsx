@@ -2,7 +2,8 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 interface AuthContextType {
     isAuthenticated: boolean;
-    login: (token: string) => void;
+    login: (accessToken: string, refreshToken: string) => void;
+    updateTokens: (accessToken: string, refreshToken: string) => void;
     logout: () => void;
 }
 
@@ -12,17 +13,28 @@ export const AuthProvider = ({ children }: { children: ReactNode}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(() => !!sessionStorage.getItem("accessToken"));
 
 
-    function login(accessToken: string){
+    function saveTokens(accessToken: string, refreshToken: string) {
         sessionStorage.setItem("accessToken", accessToken);
-        setIsAuthenticated(true)
-}
-    function logout() {
-        sessionStorage.clear();
+        sessionStorage.setItem("refreshToken", refreshToken);
+    }
+
+    function login(accessToken: string, refreshToken: string) {
+        saveTokens(accessToken, refreshToken);
         setIsAuthenticated(true)
     }
 
+    function updateTokens(accessToken: string, refreshToken: string) {
+        saveTokens(accessToken, refreshToken);
+    }
+
+    function logout() {
+        sessionStorage.removeItem("accessToken");
+        sessionStorage.removeItem("refreshToken");
+        setIsAuthenticated(false)
+    }
+
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }} >
+        <AuthContext.Provider value={{ isAuthenticated, login, updateTokens, logout }} >
             { children }
         </AuthContext.Provider>
     )

@@ -38,7 +38,7 @@ export default function UserLogin(): JSXElement {
       }
 
       const data: LoginResponse = await response.json()
-      login(data.session.access_token)
+      login(data.session.access_token, data.session.refresh_token)
       navigate(from, { replace: true })
       
     } catch (loginError) {

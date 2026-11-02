@@ -6,6 +6,7 @@ export interface LoginCredentials {
 export interface LoginResponse {
 session: {
     access_token: string;
+    refresh_token: string;
 },
 
 user: {

@@ -1,31 +1,47 @@
-import { useRecommendation } from "@/hooks/useRecommendations"
+import { useRecommendation } from "@/contexts/RecommendationContext"
 import { BookCardComponent } from "../CardComponent/BookCardComponent"
+import "./Recommendations.css"
 
 
 export const Recommendations = () => {
-    const {recommendationResult }  = useRecommendation()
+    const context = useRecommendation()
+    if (!context) throw new Error("Recommendations must be rendered inside RecommendationProvider.")
+
+    const { recommendationResult, loading, err } = context
 
     const books = recommendationResult?.hits ?? []
-    if (books.length === 0) return null
+    const hasRecommendations = books.length > 0
+    const errorMessage = err instanceof Error ? err.message : "Unable to load recommendations."
 
     return (
         <div className="recommendations">
-            <h1 className="ms-30 text-sm">Recommended For You</h1>
+            <h1 className="ms-10 mt-7 text-sm" style={{ fontWeight: "bold", fontSize: 20 }}>Recommended For You</h1>
 
-            {books?.map((book) => (
-                <div className="flex flex-wrap ms-30 mt-4">
-                    {/* <p>Found: {book?.found}</p>    */}
-                <BookCardComponent
-                    key={book?.id}
-                    image={book?.image?.url}
-                    genres={book?.genres}
-                    authors={book?.authors}
-                    title={book?.title}
-                    publishedYear={book?.release_year}
-                    numberOfPages={book?.pages}
-                    id={book?.id}/>
-                </div>))}
-            </div>
-    
+            {loading && (
+                <p role="status" aria-live="polite" className="ms-30 mt-4">
+                    {hasRecommendations ? "Refreshing recommendations..." : "Loading recommendations..."}
+                </p>
+            )}
+            {err && <p role="alert" className="ms-30 mt-4 text-error-primary">{errorMessage}</p>}
+            {!loading && !err && !hasRecommendations && (
+                <p className="ms-30 mt-4">No recommendations available yet.</p>
+            )}
+            {hasRecommendations && (
+                <div className="recommendation-grid">
+                    {books.map((book) => (
+                        <BookCardComponent
+                            key={book.id}
+                            image={book?.image?.url}
+                            genres={book?.genres}
+                            authors={book?.author_names}
+                            title={book?.title}
+                            publishedYear={book?.release_year}
+                            numberOfPages={book?.pages}
+                            id={book?.id}
+                        />
+                    ))}
+                </div>
+            )}
+        </div>
     )
 }

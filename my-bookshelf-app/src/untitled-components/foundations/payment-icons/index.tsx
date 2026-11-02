@@ -15,7 +15,7 @@ export { default as CashAppPayIcon } from "./cash-app-pay-icon";
 export { default as CitadeleIcon } from "./citadele-icon";
 export { default as CoinbaseIcon } from "./coinbase-icon";
 export { default as DinersClubIcon } from "./diners-club-icon";
-export { default as DiscoverIcon } from "./discover-icon";
+export { default as DiscoverIcon } from "./-icon";
 export { default as EloIcon } from "./elo-icon";
 export { default as EtheriumIcon } from "./etherium-icon";
 export { default as ForbrugsforeningenIcon } from "./forbrugsforeningen-icon";
