@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight16Regular, StarFilled } from '@fluentui/react-icons';
+import { StarFilled } from '@fluentui/react-icons';
 import { BookCardActions } from '../BookCardActions/BookCardActions';
 import { TagGroup, TagList, Tag } from '@/untitled-components/base/tags/tags';
 import './BookCardComponent.css'
@@ -28,7 +28,8 @@ export function BookCardComponent(info : BookCardProps) {
     const MAX_TAGS = 3;
     const genres = info?.genres ?? []
     const visibleGenres = genres.slice(0, MAX_TAGS);
-    const hiddenCount = genres.length - MAX_TAGS
+    const hiddenCount = genres.length - visibleGenres.length
+    const authors = info?.authors?.join(', ') || 'Unknown author'
 
     async function handleFavorites(favorite: boolean) {
         if (info.id == null) return;
@@ -45,20 +46,20 @@ export function BookCardComponent(info : BookCardProps) {
 
     return (
         <div className='book-card'>
-            <div>
+            <div className="book-cover-frame">
                 {info?.image ? <img
-                className="image-styles"
+                className="book-cover-image"
                 src={info?.image}
-                alt="Book Cover"
-                /> : <BookCover src={info?.image} title={info?.title}/> }
+                alt={`Cover of ${info?.title ?? 'Untitled'}`}
+                /> : <BookCover src={info?.image} title={info?.title ?? 'Untitled'}/> }
             </div>
 
-        <div className='book-title' >
-            <h3>{info?.title}</h3> 
+        <div className="book-title">
+            <h3 title={info?.title}>{info?.title || 'Untitled'}</h3>
         </div>
 
         <div className='book-authors'>
-            <p>{`by ${info?.authors?.join(', ')}`}</p>
+            <p title={authors}>{`by ${authors}`}</p>
         </div>
 
         <div className='book-genres'>
@@ -75,10 +76,15 @@ export function BookCardComponent(info : BookCardProps) {
         </div>
 
         <div className='misc-details'>
-            <p>{info?.publishedYear ? `Published: ${info.publishedYear}`: ``}</p>
-        {info?.numberOfPages && (
-            <p><StarFilled style={{ height: '10px', width: '10px'}} />{`${info?.numberOfPages} pages`}</p>
-        )}
+            <p className="misc-published">
+                {info?.publishedYear ? `Published: ${info.publishedYear}` : ""}
+            </p>
+            {info?.numberOfPages != null && (
+                <p className="misc-page-count">
+                    <StarFilled aria-hidden="true" />
+                    <span>{info.numberOfPages} pages</span>
+                </p>
+            )}
         </div>
         <BookCardActions rating={info.rating} handleRating={info.handleRating} readingStatus={info.readingStatus} setReadingStatus={info.onStatusChange} handleFavorite={() => handleFavorites(isFavorite)} />
         </div>

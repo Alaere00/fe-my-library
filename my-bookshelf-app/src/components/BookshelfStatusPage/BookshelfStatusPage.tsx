@@ -20,7 +20,7 @@ export function BookshelfStatusPage() {
             <h1 className="mt-2 font-semibold text-display-sm">
                 {tab.label} ({books.length})
             </h1>
-             <div className="flex flex-wrap ms-30 mt-4">
+             <div className="flex flex-wrap ms-30 mt-4 gap-4">
                 {books.map((book) =>    
                 <BookCardComponent
                     key={book.id}

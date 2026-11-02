@@ -1,7 +1,23 @@
 .actions-container {
     display: flex;
-    flex-direction: row;
-    gap: 10px;
+    flex: 0 0 36px;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+    margin-top: auto;
+}
+
+.actions-container .status-action {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.actions-container > button:not(.status-action) {
+    flex: 0 0 36px;
+    width: 36px;
 
 }
 

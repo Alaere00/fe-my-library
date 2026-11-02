@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ListItem } from "@fluentui/react-components"
 import type { BookInfo, BookSearchResult } from "../types/BookResponseTypes"
 import "./BookCard.css"
 import { BookCardComponent } from "../CardComponent/BookCardComponent"
@@ -64,8 +63,7 @@ const BookResultListComponent = ({ results }: BookListProps ) => {
     }
  
     return (
-        <>
-    <ListItem>
+    <div className="search-results-grid">
         {results?.hits?.map((info, index) => (
         <BookCardComponent
             key={index}
@@ -83,9 +81,7 @@ const BookResultListComponent = ({ results }: BookListProps ) => {
             rating={ratings[info.id]}
         />
         ))}
-        </ListItem>
-    </>
-    
+    </div>
 
     )
 }

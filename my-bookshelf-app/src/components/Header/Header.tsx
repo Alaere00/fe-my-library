@@ -73,7 +73,7 @@ export const Header = () => {
             </Tabs.List>
             </Tabs>
             {/* <Button className="login-btn" onClick={() => navigate('/sign-in')}>Login</Button> */}
-            <div className="flex gap-4 me-4">
+            <div className="flex items-center gap-4 me-4">
             <Button className="logout-btn" onClick={signUserOut}>Logout</Button> 
             <Button href="/profile" color="tertiary" size="sm" aria-label="View profile">
                 <Avatar size="md" alt="Profile" initials="AN" />

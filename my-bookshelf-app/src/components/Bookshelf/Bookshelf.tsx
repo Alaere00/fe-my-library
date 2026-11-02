@@ -66,7 +66,7 @@ export function Bookshelf() {
                     </Link>
                 </div>
         
-            <div className="flex ms-30 mt-4">
+            <div className="flex flex-wrap ms-30 mt-4 gap-4">
 
             {books.slice(0, LIMIT).map((book) =>    
                 <BookCardComponent

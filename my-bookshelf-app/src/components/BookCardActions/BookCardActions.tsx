@@ -46,7 +46,7 @@ export const BookCardActions = ({rating, handleRating, readingStatus, setReading
             <Menu positioning={{ autoSize: true }}>
 
             <MenuTrigger disableButtonEnhancement>
-                <Button>{selectedStatus}</Button>
+                <Button className="status-action">{selectedStatus}</Button>
             </MenuTrigger>
             <MenuPopover>
 

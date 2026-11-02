@@ -1,81 +1,156 @@
 .book-card {
+    box-sizing: border-box;
     display: flex;
+    flex: 0 0 280px;
     flex-direction: column;
- 
-    justify-content: flex-start;
+    gap: 4px;
+    width: 280px;
+    height: 420px;
+    min-width: 0;
+    /* overflow: hidden; */
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 9px;
-    background-color: #F2F7FF;
-    min-height: 408px;
-    width: 300px;
-    padding: 8px;
-    gap: 1px;
+    background-color: #f2f7ff;
     font-family: Helvetica, sans-serif;
+}
 
-    .misc-details {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 8px
-    }
+.book-cover-frame {
+    display: grid;
+    flex: 0 0 160px;
+    place-items: center;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
 
-    .image-styles {
-        width: 100%;
-        height: 200px;
-        object-fit: contain;
-        display: block;
-        margin: 10px 0;
-    
-    }
+.book-cover-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 
-    .book-title h3 {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: #333;
-        text-align: left;
-        margin: 5px 0;
-    }
+.book-cover-fallback {
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: 8px;
+    border-radius: 4px;
+    background: #e5e7eb;
+    color: #6b7280;
+    font-size: 14px;
+    text-align: center;
+}
 
-    .book-authors p {
-        margin: 1px 0;
-        text-align: left;
-        height: 12px;
-    }
+.book-title {
+    flex: 0 0 48px;
+    min-width: 0;
+    overflow: hidden;
+}
 
-    .book-genres {
-        margin-top: 10px;
-        margin-bottom: 2px;
-        min-width: 0;
-        max-width: 100%;
-        display: flex;
-        flex-direction: row;
+.book-title h3 {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+    text-align: left;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
 
-        .tag-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 4px
-        }
+.book-authors {
+    flex: 0 0 36px;
+    min-width: 0;
+    overflow: hidden;
+}
 
-        .tags{
-            box-shadow: none;
-        }
-    }
+.book-authors p {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0;
+    line-height: 18px;
+    overflow-wrap: anywhere;
+    text-align: left;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
 
-    .book-detaiils {
-        background-color: inherit;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-        margin: 1px 0;
-    }
+.book-genres {
+    flex: 0 0 52px;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
 
-    .tags {
-        background-color: var(--palette-light-moss);
-        color: white;
-        border-radius: 10px;
-    }
-    
-    
+.book-genres .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    max-height: 52px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.book-genres .tags {
+    box-sizing: border-box;
+    max-width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: var(--palette-light-moss);
+    box-shadow: none;
+    color: white;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.book-genres .tags > div {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.misc-details {
+    display: flex;
+    flex: 0 0 24px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    overflow: visible;
+}
+
+.misc-details p {
+    flex: 0 0 auto;
+    overflow: visible;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.misc-page-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.misc-page-count svg {
+    display: block;
+    flex: 0 0 auto;
+    width: 12px;
+    height: 12px;
 }
 
 
